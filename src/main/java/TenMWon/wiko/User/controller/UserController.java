@@ -1,4 +1,4 @@
-package TenMWon.wiko.security.controller;
+package TenMWon.wiko.User.controller;
 
 import TenMWon.wiko.User.domain.entity.User;
 import TenMWon.wiko.User.domain.request.JoinRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/jwt-login")
 @Tag(name="로그인 및 회원가입 api")
-public class JwtLoginApiController {
+public class UserController {
 
     private final UserService userService;
 
