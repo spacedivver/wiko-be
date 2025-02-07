@@ -1,6 +1,7 @@
 package TenMWon.wiko.recruit.dto.out;
 
 import TenMWon.wiko.recruit.entity.ContractType;
+import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
@@ -24,7 +25,7 @@ public class RecruitResponseDto {
     private String detail;
     private String companyName;
     private String companyAddress;
-    private String industryType;
+    private IndustryType industryType;
     private String contactName;
     private String contactPhone;
     private String contactEmail;

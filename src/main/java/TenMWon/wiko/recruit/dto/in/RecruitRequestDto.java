@@ -1,6 +1,7 @@
 package TenMWon.wiko.recruit.dto.in;
 
 import TenMWon.wiko.recruit.entity.ContractType;
+import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.in.RecruitRequestVo;
@@ -26,7 +27,7 @@ public class RecruitRequestDto {
     private String detail;
     private String companyName;
     private String companyAddress;
-    private String industryType;
+    private IndustryType industryType;
     private String contactName;
     private String contactPhone;
     private String contactEmail;
@@ -35,7 +36,7 @@ public class RecruitRequestDto {
     public RecruitRequestDto(String title, Long salary, SalaryType salaryType,
                    ContractType contractType, String workingPeriod,
                    String workingHours, LocalDateTime deadline, String detail,
-                   String companyName, String companyAddress, String industryType,
+                   String companyName, String companyAddress, IndustryType industryType,
                    String contactName, String contactPhone, String contactEmail) {
         this.title = title;
         this.salary = salary;

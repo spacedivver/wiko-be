@@ -5,11 +5,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -41,7 +38,7 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false, length = 255)
     private String companyAddress;
     @Column(nullable = false, length = 100)
-    private String industryType;
+    private IndustryType industryType;
     @Column(nullable = false, length = 50)
     private String contactName;
     @Column(nullable = false, length = 20)
@@ -53,7 +50,7 @@ public class Recruit extends BaseEntity {
     public Recruit(Long recruitId, String title, Long salary, SalaryType salaryType,
                    ContractType contractType, String workingPeriod,
                    String workingHours, LocalDateTime deadline, String detail,
-                   String companyName, String companyAddress, String industryType,
+                   String companyName, String companyAddress, IndustryType industryType,
                    String contactName, String contactPhone, String contactEmail) {
         this.recruitId = recruitId;
         this.title = title;
