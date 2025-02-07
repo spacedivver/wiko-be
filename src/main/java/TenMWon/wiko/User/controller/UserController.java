@@ -30,20 +30,23 @@ public class UserController {
 
     @Operation(summary="회원가입")
     @PostMapping("/join")
-    public String join(@RequestBody JoinRequest joinRequest) {
+    public ResponseEntity<String> join(@RequestBody JoinRequest joinRequest) {
 
-        if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
-            return "로그인 아이디가 중복됩니다.";
+        if (userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("로그인 아이디가 중복됩니다.");
         }
 
-        if(!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
-            return"바밀번호가 일치하지 않습니다.";
+        if (!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("비밀번호가 일치하지 않습니다.");
         }
 
         userService.join(joinRequest);
-        return "회원가입 성공";
+        return ResponseEntity.ok("회원가입 성공");
     }
-
     @Operation(summary="아이디 중복체크")
     @GetMapping("/check-duplicate")
     public ResponseEntity<Map<String, Object>> checkDuplicate(@RequestParam("loginId") String loginId) {
