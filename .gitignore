@@ -38,3 +38,5 @@ out/
 
 *.yml
 *.yaml
+
+application.properties
