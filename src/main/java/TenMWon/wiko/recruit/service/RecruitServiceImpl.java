@@ -7,13 +7,12 @@ import TenMWon.wiko.recruit.dto.out.RecruitListResponseDto;
 import TenMWon.wiko.recruit.dto.out.RecruitResponseDto;
 import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.repository.RecruitRepository;
-import jakarta.validation.OverridesAttribute;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

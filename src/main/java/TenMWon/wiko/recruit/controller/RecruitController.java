@@ -10,11 +10,9 @@ import TenMWon.wiko.recruit.vo.out.RecruitListResponseVo;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,7 +29,7 @@ public class RecruitController {
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
-    @Operation(summary = "Recruit List API", description = "Recruit 최신순 List API 입니다.", tags = {"Recruit"})
+    @Operation(summary = "Recruit List API", description = "최신순으로 일자리 정보를 List로 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/list")
     public BaseResponse<List<RecruitListResponseVo>> readRecruitList(
             @RequestParam(defaultValue = "0") int page,
@@ -43,7 +41,7 @@ public class RecruitController {
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
-    @Operation(summary = "Recruit 상세 조회 API", description = "recruitId로 recruit의 상세 내용을 조회하는 API 입니다.", tags = {"Recruit"})
+    @Operation(summary = "Recruit 상세 조회 API", description = "recruitId로 일자리 정보의 상세 내용을 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/detail")
     public BaseResponse<RecruitResponseVo> readRecruitDetail(@RequestParam Long recruitId) {
         return new BaseResponse<>(recruitService.readRecruitDetail(recruitId).toVo());
