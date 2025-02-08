@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RecruitServiceImpl implements RecruitService{
+public class RecruitServiceImpl implements RecruitService {
 
     private final RecruitRepository recruitRepository;
     private final RecruitRepositoryCustom recruitRepositoryCustom;
@@ -40,16 +40,25 @@ public class RecruitServiceImpl implements RecruitService{
     public Page<RecruitListResponseDto> readRecruitList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
         Page<Recruit> recruitPage = recruitRepository.findAll(pageable);
-        if(recruitPage.isEmpty()) {
+        if (recruitPage.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
         }
-        return recruitRepository.findAll(pageable)
-                .map(RecruitListResponseDto::toDto);
+        return recruitPage.map(RecruitListResponseDto::toDto);
     }
 
     @Override
     public Page<RecruitListResponseDto> readFilterRecruitList(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
         Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(industryTypeList, startAddress, endAddress, minSalary, maxSalary, pageable);
         return recruitPage.map(RecruitListResponseDto::toDto);
+    }
+
+    @Override
+    public Page<RecruitListResponseDto> readRecruitSearch(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+        Page<Recruit> recruitSearch = recruitRepository.findByTitleContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(keyword, keyword, pageable);
+        if (recruitSearch.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+        }
+        return recruitSearch.map(RecruitListResponseDto::toDto);
     }
 }

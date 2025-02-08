@@ -6,7 +6,6 @@ import TenMWon.wiko.recruit.dto.in.RecruitRequestDto;
 import TenMWon.wiko.recruit.dto.out.RecruitListResponseDto;
 import TenMWon.wiko.recruit.service.RecruitService;
 import TenMWon.wiko.recruit.vo.in.RecruitRequestVo;
-import TenMWon.wiko.recruit.vo.out.RecruitListResponseVo;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +33,10 @@ public class RecruitController {
 
     @Operation(summary = "Recruit List API", description = "최신순으로 일자리 정보를 List로 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/list")
-    public BaseResponse<List<RecruitListResponseVo>> readRecruitList(
+    public BaseResponse<Page<RecruitListResponseDto>> readRecruitList(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        List<RecruitListResponseVo> recruitListResponseVoList = recruitService.readRecruitList(page, size)
-                .stream()
-                .map(RecruitListResponseDto::toVo)
-                .toList();
+        Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readRecruitList(page, size);
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
@@ -58,6 +54,16 @@ public class RecruitController {
         Pageable pageable = PageRequest.of(page, size);
         return recruitService.readFilterRecruitList(industryTypeList, startAddress, endAddress,
                 minSalary, maxSalary, pageable);
+    }
+
+    @Operation(summary = "Recruit 검색 API", description = "recruit 검색내용을 조회하는 API 입니다.", tags = {"Recruit"})
+    @GetMapping("/search")
+    public BaseResponse<Page<RecruitListResponseDto>> readRecruitSearch(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<RecruitListResponseDto> recruitsSearch = recruitService.readRecruitSearch(keyword, page, size);
+        return new BaseResponse<>(recruitsSearch);
     }
 
     @Operation(summary = "Recruit 상세 조회 API", description = "recruitId로 일자리 정보의 상세 내용을 조회하는 API 입니다.", tags = {"Recruit"})

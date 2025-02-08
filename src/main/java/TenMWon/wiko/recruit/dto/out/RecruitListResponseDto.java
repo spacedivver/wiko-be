@@ -4,11 +4,8 @@ import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.vo.out.RecruitListResponseVo;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@Builder
 public class RecruitListResponseDto {
 
     private String title;
