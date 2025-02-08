@@ -1,5 +1,7 @@
 package TenMWon.wiko.recruit.repository;
 
+import TenMWon.wiko.common.entity.BaseResponseStatus;
+import TenMWon.wiko.common.exception.BaseException;
 import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.QRecruit;
 import TenMWon.wiko.recruit.entity.Recruit;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,10 +23,10 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Recruit> findRecruitWithFilters(String industryType, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
+    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
         QRecruit recruit = QRecruit.recruit;
 
-        BooleanExpression predicate = buildPredicate(industryType, startAddress, endAddress, minSalary, maxSalary, recruit);
+        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minSalary, maxSalary, recruit);
 
         List<Recruit> content = jpaQueryFactory
                 .selectFrom(recruit)
@@ -32,6 +35,10 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+        if (content.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+        }
+
         long total = jpaQueryFactory
                 .selectFrom(recruit)
                 .where(predicate)
@@ -40,12 +47,14 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
     }
 
     // 필터링 조건(업종, 지역, 급여)
-    private BooleanExpression buildPredicate(String industryType, String startAddress, String endAddress, Long minSalary, Long maxSalary, QRecruit recruit) {
+    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
         // 업종
-        if (industryType != null) {
-            industryType = industryType.replace("-", "_");
-            predicate = predicate.and(recruit.industryType.eq(IndustryType.valueOf(industryType)));
+        if (industryTypeList != null && !industryTypeList.isEmpty()) {
+            List<IndustryType> formattedTypes = industryTypeList.stream()
+                    .map(type -> IndustryType.valueOf(type.replace("-", "_")))
+                    .collect(Collectors.toList());
+            predicate = predicate.and(recruit.industryType.in(formattedTypes));
         }
         // 지역
         if (startAddress != null && endAddress != null) {

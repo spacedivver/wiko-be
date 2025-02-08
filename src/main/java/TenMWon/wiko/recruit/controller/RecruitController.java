@@ -44,10 +44,10 @@ public class RecruitController {
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
-    @Operation(summary = "Recruit 필터링 조회 API", description = "업종, 지역, 급여 별 필터링 조회하는 API 입니다.", tags = {"Recruit"})
+    @Operation(summary = "Recruit 필터링 조회 API", description = "업종, 지역, 급여별 필터링 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/filterList")
     public Page<RecruitListResponseDto> readFilterRecruitList(
-            @RequestParam(required = false) String industryType,
+            @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
             @RequestParam(required = false) String endAddress,
             @RequestParam(required = false) Long minSalary,
@@ -56,7 +56,7 @@ public class RecruitController {
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        return recruitService.readFilterRecruitList(industryType, startAddress, endAddress,
+        return recruitService.readFilterRecruitList(industryTypeList, startAddress, endAddress,
                 minSalary, maxSalary, pageable);
     }
 

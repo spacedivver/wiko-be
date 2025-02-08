@@ -4,7 +4,9 @@ import TenMWon.wiko.recruit.entity.Recruit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface RecruitRepositoryCustom {
 
-    Page<Recruit> findRecruitWithFilters(String industryType, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable);
+    Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable);
 }
