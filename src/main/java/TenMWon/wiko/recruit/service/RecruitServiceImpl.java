@@ -7,6 +7,7 @@ import TenMWon.wiko.recruit.dto.out.RecruitListResponseDto;
 import TenMWon.wiko.recruit.dto.out.RecruitResponseDto;
 import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.repository.RecruitRepository;
+import TenMWon.wiko.recruit.repository.RecruitRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class RecruitServiceImpl implements RecruitService{
 
     private final RecruitRepository recruitRepository;
+    private final RecruitRepositoryCustom recruitRepositoryCustom;
 
     @Override
     public void createRecruit(RecruitRequestDto recruitRequestDto) {
@@ -38,5 +40,11 @@ public class RecruitServiceImpl implements RecruitService{
         Page<Recruit> recruitPage = recruitRepository.findAll(pageable);
         return recruitRepository.findAll(pageable)
                 .map(RecruitListResponseDto::toDto);
+    }
+
+    @Override
+    public Page<RecruitListResponseDto> readFilterRecruitList(String industryType, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
+        Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(industryType, startAddress, endAddress, minSalary, maxSalary, pageable);
+        return recruitPage.map(RecruitListResponseDto::toDto);
     }
 }

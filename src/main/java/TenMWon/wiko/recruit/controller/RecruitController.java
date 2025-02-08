@@ -10,6 +10,9 @@ import TenMWon.wiko.recruit.vo.out.RecruitListResponseVo;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +42,22 @@ public class RecruitController {
                 .map(RecruitListResponseDto::toVo)
                 .toList();
         return new BaseResponse<>(recruitListResponseVoList);
+    }
+
+    @Operation(summary = "Recruit 필터링 조회 API", description = "업종, 지역, 급여 별 필터링 조회하는 API 입니다.", tags = {"Recruit"})
+    @GetMapping("/filterList")
+    public Page<RecruitListResponseDto> readFilterRecruitList(
+            @RequestParam(required = false) String industryType,
+            @RequestParam(required = false) String startAddress,
+            @RequestParam(required = false) String endAddress,
+            @RequestParam(required = false) Long minSalary,
+            @RequestParam(required = false) Long maxSalary,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return recruitService.readFilterRecruitList(industryType, startAddress, endAddress,
+                minSalary, maxSalary, pageable);
     }
 
     @Operation(summary = "Recruit 상세 조회 API", description = "recruitId로 일자리 정보의 상세 내용을 조회하는 API 입니다.", tags = {"Recruit"})
