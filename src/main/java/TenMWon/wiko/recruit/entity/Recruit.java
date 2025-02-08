@@ -23,7 +23,7 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false)
     private SalaryType salaryType;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private ContractType contractType;
     @Column(nullable = false)
     private String workingPeriod;
@@ -37,7 +37,8 @@ public class Recruit extends BaseEntity {
     private String companyName;
     @Column(nullable = false, length = 255)
     private String companyAddress;
-    @Column(nullable = false, length = 100)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private IndustryType industryType;
     @Column(nullable = false, length = 50)
     private String contactName;

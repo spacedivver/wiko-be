@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SalaryType {
 
-    MONTHLY("월급"),
-    DAILY("일봉"),
-    ANNUAL("연봉");
+    월급("월급"),
+    일봉("일봉"),
+    연봉("연봉");
 
     private final String salaryType;
 

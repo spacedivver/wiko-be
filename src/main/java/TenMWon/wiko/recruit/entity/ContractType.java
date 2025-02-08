@@ -9,9 +9,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ContractType {
 
-    FULL_TIME("정규직"),
-    CONTRACT("계약직"),
-    DISPATCH("파견직");
+    정규직("정규직"),
+    계약직("계약직"),
+    파견직("파견직");
 
     private final String contractType;
 

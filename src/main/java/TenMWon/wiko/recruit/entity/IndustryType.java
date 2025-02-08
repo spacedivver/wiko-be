@@ -9,15 +9,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum IndustryType {
 
-    OUTDOOR_DRINK("외식·음료"),
-    SERVICE("서비스"),
-    RETAIL_SALES("유통·판매·영업"),
-    CULTURE_LEISURE("문화·여가·생활"),
-    CUSTOMER_SERVICE_RESEARCH("고객상담·리서치"),
-    PRODUCTION_CONSTRUCTION("생산·건설·노무"),
-    TRANSLATION("통역·번역"),
-    DELIVERY_DRIVER("운전·배달"),
-    EDUCATION_INSTRUCTOR("교육·강사");
+    외식_음료("외식-음료"),
+    서비스("서비스"),
+    유통_판매_영업("유통-판매-영업"),
+    문화_여가_생활("문화-여가-생활"),
+    고객상담_리서치("고객상담-리서치"),
+    생산_건설_노무("생산-건설-노무"),
+    통역_번역("통역-번역"),
+    운전_배달("운전-배달"),
+    교육_강사("교육-강사");
 
     private final String industryType;
 

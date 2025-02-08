@@ -44,6 +44,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
         BooleanExpression predicate = recruit.isNotNull();
         // 업종
         if (industryType != null) {
+            industryType = industryType.replace("-", "_");
             predicate = predicate.and(recruit.industryType.eq(IndustryType.valueOf(industryType)));
         }
         // 지역
