@@ -21,8 +21,9 @@ public class Resume {
     private String education;
     @Column(nullable = false, length = 100)
     private String languageSkill;
-    @Column(nullable = false, length = 100)
-    private String career;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CareerType careerType;
     @Column(nullable = false, length = 500)
     private List<String> strength;
     @Column(nullable = false, length = 500)
@@ -32,12 +33,12 @@ public class Resume {
 
     @Builder
     public Resume(Long resumeId, String resumeImage, String education, String languageSkill,
-                  String career, List<String> strength, List<String>jobSkill, String introduction) {
+                  CareerType careerType, List<String> strength, List<String>jobSkill, String introduction) {
         this.resumeId = resumeId;
         this.resumeImage = resumeImage;
         this.education = education;
         this.languageSkill = languageSkill;
-        this.career = career;
+        this.careerType = careerType;
         this.strength = strength;
         this.jobSkill = jobSkill;
         this.introduction = introduction;

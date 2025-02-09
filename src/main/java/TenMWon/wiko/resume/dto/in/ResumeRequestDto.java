@@ -1,5 +1,6 @@
 package TenMWon.wiko.resume.dto.in;
 
+import TenMWon.wiko.resume.entity.CareerType;
 import TenMWon.wiko.resume.entity.Resume;
 import TenMWon.wiko.resume.vo.in.ResumeRequestVo;
 import lombok.Builder;
@@ -15,21 +16,23 @@ public class ResumeRequestDto {
     private String resumeImage;
     private String education;
     private String languageSkill;
-    private String career;
+    private CareerType careerType;
+    private List<CareerRequestDto> careerDetail;
     private List<String> strength;
     private List<String> jobSkill;
     private String introduction;
 
     @Builder
-    public ResumeRequestDto(String resumeImage, String education, String languageSkill, String career,
-                            List<String> strength, List<String> jobSkill, String introduction) {
+    public ResumeRequestDto(String resumeImage, String education, String languageSkill, CareerType careerType,
+                            List<String> strength, List<String> jobSkill, String introduction, List<CareerRequestDto> careerDetail) {
         this.resumeImage = resumeImage;
         this.education = education;
         this.languageSkill = languageSkill;
-        this.career = career;
+        this.careerType = careerType;
         this.strength = strength;
         this.jobSkill = jobSkill;
         this.introduction = introduction;
+        this.careerDetail = careerDetail;
     }
 
     public Resume toEntity() {
@@ -37,7 +40,7 @@ public class ResumeRequestDto {
                 .resumeImage(resumeImage)
                 .education(education)
                 .languageSkill(languageSkill)
-                .career(career)
+                .careerType(careerType)
                 .strength(strength)
                 .jobSkill(jobSkill)
                 .introduction(introduction)
@@ -48,10 +51,11 @@ public class ResumeRequestDto {
                 .resumeImage(resumeRequestVo.getResumeImage())
                 .education(resumeRequestVo.getEducation())
                 .languageSkill(resumeRequestVo.getLanguageSkill())
-                .career(resumeRequestVo.getCareer())
+                .careerType(resumeRequestVo.getCareerType())
                 .strength(resumeRequestVo.getStrength())
                 .jobSkill(resumeRequestVo.getJobSkill())
                 .introduction(resumeRequestVo.getIntroduction())
+                .careerDetail(resumeRequestVo.getCareerDetail())
                 .build();
     }
 }

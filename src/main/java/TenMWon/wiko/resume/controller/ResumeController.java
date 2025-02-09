@@ -26,4 +26,10 @@ public class ResumeController {
         resumeService.createResume(ResumeRequestDto.toDto(resumeRequestVo));
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
+
+//    @Operation(summary = "Resume 조회 API (단일조회)", description = "userId로 이력서 내용을 조회하는 API 입니다.", tags = {"Resume"})
+//    @GetMapping("/read")
+//    public BaseResponse<ResumeResponseVo> readResume(@RequestParam Long userId) {
+//        return new BaseResponse<>(recruitService.readResume(userId).toVo());
+//    }
 }
