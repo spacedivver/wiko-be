@@ -20,6 +20,8 @@ public class RecruitRequestVo {
     private String workingHours;
     private LocalDateTime deadline;
     private String detail;
+    private String advantage;
+    private String companyLogo;
     private String companyName;
     private String companyAddress;
     private IndustryType industryType;

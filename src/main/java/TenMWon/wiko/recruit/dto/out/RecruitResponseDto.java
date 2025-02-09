@@ -1,15 +1,12 @@
 package TenMWon.wiko.recruit.dto.out;
 
 import TenMWon.wiko.recruit.entity.ContractType;
-import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.Recruit;
 import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -21,11 +18,13 @@ public class RecruitResponseDto {
     private ContractType contractType;
     private String workingPeriod;
     private String workingHours;
-    private LocalDateTime deadline;
+    private String advantage;
+    //    private LocalDateTime deadline;
     private String detail;
+    private String companyLogo;
     private String companyName;
     private String companyAddress;
-    private IndustryType industryType;
+    //    private IndustryType industryType;
     private String contactName;
     private String contactPhone;
     private String contactEmail;
@@ -38,11 +37,13 @@ public class RecruitResponseDto {
                 .contractType(recruit.getContractType())
                 .workingPeriod(recruit.getWorkingPeriod())
                 .workingHours(recruit.getWorkingHours())
-                .deadline(recruit.getDeadline())
+                .advantage(recruit.getAdvantage())
+//                .deadline(recruit.getDeadline())
                 .detail(recruit.getDetail())
                 .companyName(recruit.getCompanyName())
                 .companyAddress(recruit.getCompanyAddress())
-                .industryType(recruit.getIndustryType())
+//                .industryType(recruit.getIndustryType())
+                .companyLogo(recruit.getCompanyLogo())
                 .contactName(recruit.getContactName())
                 .contactPhone(recruit.getContactPhone())
                 .contactEmail(recruit.getContactEmail())
@@ -57,11 +58,13 @@ public class RecruitResponseDto {
                 .contractType(contractType)
                 .workingPeriod(workingPeriod)
                 .workingHours(workingHours)
-                .deadline(deadline)
+                .advantage(advantage)
+//                .deadline(deadline)
                 .detail(detail)
                 .companyName(companyName)
                 .companyAddress(companyAddress)
-                .industryType(industryType)
+//                .industryType(industryType)
+                .companyLogo(companyLogo)
                 .contactName(contactName)
                 .contactPhone(contactPhone)
                 .contactEmail(contactEmail)

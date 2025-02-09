@@ -10,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor
@@ -25,6 +23,8 @@ public class RecruitRequestDto {
     private String workingHours;
     private LocalDateTime deadline;
     private String detail;
+    private String advantage;
+    private String companyLogo;
     private String companyName;
     private String companyAddress;
     private IndustryType industryType;
@@ -37,7 +37,7 @@ public class RecruitRequestDto {
                    ContractType contractType, String workingPeriod,
                    String workingHours, LocalDateTime deadline, String detail,
                    String companyName, String companyAddress, IndustryType industryType,
-                   String contactName, String contactPhone, String contactEmail) {
+                   String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
         this.title = title;
         this.salary = salary;
         this.salaryType = salaryType;
@@ -52,6 +52,8 @@ public class RecruitRequestDto {
         this.contactName = contactName;
         this.contactPhone = contactPhone;
         this.contactEmail = contactEmail;
+        this.advantage = advantage;
+        this.companyLogo = companyLogo;
     }
 
     public Recruit toEntity() {
@@ -70,6 +72,8 @@ public class RecruitRequestDto {
                 .contactName(contactName)
                 .contactPhone(contactPhone)
                 .contactEmail(contactEmail)
+                .advantage(advantage)
+                .companyLogo(companyLogo)
                 .build();
     }
 
@@ -89,6 +93,8 @@ public class RecruitRequestDto {
                 .contactName(recruitRequestVo.getContactName())
                 .contactPhone(recruitRequestVo.getContactPhone())
                 .contactEmail(recruitRequestVo.getContactEmail())
+                .advantage(recruitRequestVo.getAdvantage())
+                .companyLogo(recruitRequestVo.getCompanyLogo())
                 .build();
     }
 

@@ -34,12 +34,18 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false, length  = 1000)
     private String detail;
     @Column(nullable = false, length = 100)
+    private String advantage;
+
+    @Column(nullable = false, length = 100)
+    private String companyLogo;
+    @Column(nullable = false, length = 100)
     private String companyName;
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 500)
     private String companyAddress;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IndustryType industryType;
+
     @Column(nullable = false, length = 50)
     private String contactName;
     @Column(nullable = false, length = 20)
@@ -52,7 +58,7 @@ public class Recruit extends BaseEntity {
                    ContractType contractType, String workingPeriod,
                    String workingHours, LocalDateTime deadline, String detail,
                    String companyName, String companyAddress, IndustryType industryType,
-                   String contactName, String contactPhone, String contactEmail) {
+                   String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
         this.recruitId = recruitId;
         this.title = title;
         this.salary = salary;
@@ -68,5 +74,7 @@ public class Recruit extends BaseEntity {
         this.contactName = contactName;
         this.contactPhone = contactPhone;
         this.contactEmail = contactEmail;
+        this.advantage = advantage;
+        this.companyLogo = companyLogo;
     }
 }
