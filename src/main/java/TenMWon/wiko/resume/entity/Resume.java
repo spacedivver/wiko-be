@@ -1,0 +1,45 @@
+package TenMWon.wiko.resume.entity;
+
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Getter
+@NoArgsConstructor
+@Entity
+public class Resume {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long resumeId;
+    @Column(nullable = false, length = 100)
+    private String resumeImage;
+    @Column(nullable = false, length = 100)
+    private String education;
+    @Column(nullable = false, length = 100)
+    private String languageSkill;
+    @Column(nullable = false, length = 100)
+    private String career;
+    @Column(nullable = false, length = 500)
+    private List<String> strength;
+    @Column(nullable = false, length = 500)
+    private List<String> jobSkill;
+    @Column(nullable = false, length = 1000)
+    private String introduction;
+
+    @Builder
+    public Resume(Long resumeId, String resumeImage, String education, String languageSkill,
+                  String career, List<String> strength, List<String>jobSkill, String introduction) {
+        this.resumeId = resumeId;
+        this.resumeImage = resumeImage;
+        this.education = education;
+        this.languageSkill = languageSkill;
+        this.career = career;
+        this.strength = strength;
+        this.jobSkill = jobSkill;
+        this.introduction = introduction;
+    }
+}
