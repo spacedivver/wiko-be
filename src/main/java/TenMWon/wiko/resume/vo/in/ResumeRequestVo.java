@@ -15,7 +15,7 @@ public class ResumeRequestVo {
     private String education;
     private String languageSkill;
     private CareerType careerType;
-    private List<CareerRequestDto> careerDetail;
+    private CareerRequestDto careerDetail;
     private List<String> strength;
     private List<String> jobSkill;
     private String introduction;

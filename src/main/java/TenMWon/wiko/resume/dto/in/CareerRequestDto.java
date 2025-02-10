@@ -39,4 +39,15 @@ public class CareerRequestDto {
                 .resume(resume)
                 .build();
     }
+
+    public static CareerRequestDto toDto(Career career) {
+        return CareerRequestDto.builder()
+                .company(career.getCompany())
+                .isWorking(career.getIsWorking())
+                .startAt(career.getStartAt())
+                .endAt(career.getEndAt())
+                .workMonth(career.getWorkMonth())
+                .task(career.getTask())
+                .build();
+    }
 }

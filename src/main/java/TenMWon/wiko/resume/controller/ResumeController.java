@@ -20,8 +20,9 @@ public class ResumeController {
     @Operation(summary = "Resume 등록 API", description = "Resume 등록 API 입니다.", tags = {"Resume"})
     @PostMapping
     public BaseResponse<Void> createResume(
+            @RequestHeader("userId") Long userId,
             @RequestBody ResumeRequestVo resumeRequestVo) {
-        resumeService.createResume(ResumeRequestDto.toDto(resumeRequestVo));
+        resumeService.createResume(ResumeRequestDto.toDto(userId, resumeRequestVo));
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 

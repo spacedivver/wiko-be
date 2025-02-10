@@ -19,17 +19,18 @@ public class ResumeResponseDto {
     private String education;
     private String languageSkill;
     private CareerType careerType;
-    private List<CareerRequestDto> careerDetail;
+    private CareerRequestDto careerDetail;
     private List<String> strength;
     private List<String> jobSkill;
     private String introduction;
 
-    public static ResumeResponseDto toDto(Resume resume) {
+    public static ResumeResponseDto toDto(Resume resume, CareerRequestDto careerDetail) {
         return ResumeResponseDto.builder()
                 .resumeImage(resume.getResumeImage())
                 .education(resume.getEducation())
                 .languageSkill(resume.getLanguageSkill())
                 .careerType(resume.getCareerType())
+                .careerDetail(careerDetail)
                 .strength(resume.getStrength())
                 .jobSkill(resume.getJobSkill())
                 .introduction(resume.getIntroduction())
