@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import TenMWon.wiko.User.domain.entity.User;
 
 import java.util.List;
 
@@ -31,9 +32,13 @@ public class Resume {
     @Column(nullable = false, length = 1000)
     private String introduction;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+
     @Builder
     public Resume(Long resumeId, String resumeImage, String education, String languageSkill,
-                  CareerType careerType, List<String> strength, List<String>jobSkill, String introduction) {
+                  CareerType careerType, List<String> strength, List<String>jobSkill, String introduction, User user) {
         this.resumeId = resumeId;
         this.resumeImage = resumeImage;
         this.education = education;
@@ -42,5 +47,6 @@ public class Resume {
         this.strength = strength;
         this.jobSkill = jobSkill;
         this.introduction = introduction;
+        this.user = user;
     }
 }

@@ -79,6 +79,7 @@ public enum BaseResponseStatus {
     NO_EXIST_PIN_AUTHORITY(HttpStatus.BAD_REQUEST, false, 4004, "고정 권한이 없습니다"),
     NO_EXIST_FEED(HttpStatus.CONFLICT, false, 4005, "피드가 존재하지 않습니다."),
     NO_EXIST_RECRUIT(HttpStatus.CONFLICT, false, 4006, "일자리 정보가 존재하지 않습니다."),
+    NO_EXIST_RESUME(HttpStatus.CONFLICT, false, 4007, "이력서가 존재하지 않습니다."),
 
     /**
      * 5000: notification service error

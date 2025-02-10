@@ -1,7 +1,11 @@
 package TenMWon.wiko.resume.service;
 
+import TenMWon.wiko.common.entity.BaseResponseStatus;
+import TenMWon.wiko.common.exception.BaseException;
+
 import TenMWon.wiko.resume.dto.in.CareerRequestDto;
 import TenMWon.wiko.resume.dto.in.ResumeRequestDto;
+import TenMWon.wiko.resume.dto.out.ResumeResponseDto;
 import TenMWon.wiko.resume.entity.CareerType;
 import TenMWon.wiko.resume.entity.Resume;
 import TenMWon.wiko.resume.repository.CareerRepository;
@@ -27,11 +31,10 @@ public class ResumeServiceImpl implements ResumeService{
         }
     }
 
-//    @Override
-//    public ResumeResponseDto readResume(Long userId) {
-//        Resume resume = resumeRepository.findByUserId(userId)
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
-//        return ResumeResponseDto.toDto(resume);
-//    }
-
+    @Override
+    public ResumeResponseDto readResume(Long userId) {
+        Resume resume = resumeRepository.findByUserUserId(userId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
+        return ResumeResponseDto.toDto(resume);
+    }
 }

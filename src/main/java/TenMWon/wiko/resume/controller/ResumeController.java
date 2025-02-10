@@ -5,12 +5,10 @@ import TenMWon.wiko.common.entity.BaseResponseStatus;
 import TenMWon.wiko.resume.dto.in.ResumeRequestDto;
 import TenMWon.wiko.resume.service.ResumeService;
 import TenMWon.wiko.resume.vo.in.ResumeRequestVo;
+import TenMWon.wiko.resume.vo.out.ResumeResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,9 +25,9 @@ public class ResumeController {
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
-//    @Operation(summary = "Resume 조회 API (단일조회)", description = "userId로 이력서 내용을 조회하는 API 입니다.", tags = {"Resume"})
-//    @GetMapping("/read")
-//    public BaseResponse<ResumeResponseVo> readResume(@RequestParam Long userId) {
-//        return new BaseResponse<>(recruitService.readResume(userId).toVo());
-//    }
+    @Operation(summary = "Resume 조회 API", description = "userId로 이력서 내용을 조회하는 API 입니다.", tags = {"Resume"})
+    @GetMapping("/read")
+    public BaseResponse<ResumeResponseVo> readResume(@RequestParam Long userId) {
+        return new BaseResponse<>(resumeService.readResume(userId).toVo());
+    }
 }

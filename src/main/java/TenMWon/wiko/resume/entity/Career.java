@@ -28,11 +28,7 @@ public class Career {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resumeId", nullable = false)
-    private Resume Resume;
-
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userId", nullable = false)
-    //private User User;
+    private Resume resume;
 
     @Builder
     public Career(Long careerId, String company, Boolean isWorking, String workMonth,
@@ -44,7 +40,6 @@ public class Career {
         this.startAt = startAt;
         this.endAt = endAt;
         this.task = task;
-        this.Resume = resume;
-        //this.User = user;
+        this.resume = resume;
     }
 }
