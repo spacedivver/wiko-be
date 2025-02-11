@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RecruitRepositoryCustom {
 
-    Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable);
+    Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable);
 }

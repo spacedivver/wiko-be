@@ -1,8 +1,7 @@
 package TenMWon.wiko.recruit.dto.out;
 
-import TenMWon.wiko.recruit.entity.ContractType;
+import TenMWon.wiko.recruit.entity.EmploymentType;
 import TenMWon.wiko.recruit.entity.Recruit;
-import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.out.RecruitResponseVo;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,62 +11,48 @@ import lombok.ToString;
 @ToString
 @Builder
 public class RecruitResponseDto {
-    private String title;
-    private Long salary;
-    private SalaryType salaryType;
-    private ContractType contractType;
-    private String workingPeriod;
-    private String workingHours;
-    private String advantage;
-    //    private String deadline;
-    private String detail;
-    private String companyLogo;
-    private String companyName;
-    private String companyAddress;
-    //    private IndustryType industryType;
-    private String contactName;
-    private String contactPhone;
-    private String contactEmail;
+
+    private String imgUrl;
+    private String company;
+    private String location;
+    private String companyInfo;
+    private String responsibilities;
+    private String qualifications;
+    private String pay;
+    private EmploymentType employmentType;
+    private String workPeriod;
+    private String workHours;
+    private String preferredQualifications;
 
     public static RecruitResponseDto toDto(Recruit recruit) {
         return RecruitResponseDto.builder()
-                .title(recruit.getTitle())
-                .salary(recruit.getSalary())
-                .salaryType(recruit.getSalaryType())
-                .contractType(recruit.getContractType())
-                .workingPeriod(recruit.getWorkingPeriod())
-                .workingHours(recruit.getWorkingHours())
-                .advantage(recruit.getAdvantage())
-//                .deadline(recruit.getDeadline())
-                .detail(recruit.getDetail())
-                .companyName(recruit.getCompanyName())
-                .companyAddress(recruit.getCompanyAddress())
-//                .industryType(recruit.getIndustryType())
-                .companyLogo(recruit.getCompanyLogo())
-                .contactName(recruit.getContactName())
-                .contactPhone(recruit.getContactPhone())
-                .contactEmail(recruit.getContactEmail())
+                .imgUrl(recruit.getImgUrl())
+                .company(recruit.getCompany())
+                .location(recruit.getLocation())
+                .companyInfo(recruit.getCompanyInfo())
+                .responsibilities(recruit.getResponsibilities())
+                .qualifications(recruit.getQualification())
+                .pay(recruit.getPay())
+                .employmentType(recruit.getEmploymentType())
+                .workPeriod(recruit.getWorkingPeriod())
+                .workHours(recruit.getWorkingHours())
+                .preferredQualifications(recruit.getPreferredQualifications())
                 .build();
     }
 
     public RecruitResponseVo toVo() {
         return RecruitResponseVo.builder()
-                .title(title)
-                .salary(salary)
-                .salaryType(salaryType)
-                .contractType(contractType)
-                .workingPeriod(workingPeriod)
-                .workingHours(workingHours)
-                .advantage(advantage)
-//                .deadline(deadline)
-                .detail(detail)
-                .companyName(companyName)
-                .companyAddress(companyAddress)
-//                .industryType(industryType)
-                .companyLogo(companyLogo)
-                .contactName(contactName)
-                .contactPhone(contactPhone)
-                .contactEmail(contactEmail)
+                .imgUrl(imgUrl)
+                .company(company)
+                .location(location)
+                .companyInfo(companyInfo)
+                .responsibilities(responsibilities)
+                .qualifications(qualifications)
+                .pay(pay)
+                .employmentType(employmentType)
+                .workPeriod(workPeriod)
+                .workHours(workHours)
+                .preferredQualifications(preferredQualifications)
                 .build();
     }
 }

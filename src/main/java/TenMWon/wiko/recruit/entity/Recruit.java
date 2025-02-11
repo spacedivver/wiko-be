@@ -16,13 +16,10 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String title;
     @Column(nullable = false, length = 100)
-    private Long salary;
+    private String pay;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SalaryType salaryType;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ContractType contractType;
+    private EmploymentType employmentType;
     @Column(nullable = false)
     private String workingPeriod;
     @Column(nullable = false, length = 100)
@@ -30,49 +27,46 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false)
     private String deadline;
     @Column(nullable = false, length  = 1000)
-    private String detail;
+    private String qualification;
     @Column(nullable = false, length = 100)
-    private String advantage;
+    private String responsibilities;
+    @Column(nullable = false, length = 100)
+    private String preferredQualifications;
 
     @Column(nullable = false, length = 100)
-    private String companyLogo;
+    private String imgUrl;
     @Column(nullable = false, length = 100)
-    private String companyName;
+    private String company;
+    @Column(nullable = false, length = 100)
+    private String jobName;
+    @Column(nullable = false, length = 1000)
+    private String companyInfo;
     @Column(nullable = false, length = 500)
-    private String companyAddress;
+    private String location;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IndustryType industryType;
 
-    @Column(nullable = false, length = 50)
-    private String contactName;
-    @Column(nullable = false, length = 20)
-    private String contactPhone;
-    @Column(nullable = false, length = 100)
-    private String contactEmail;
-
     @Builder
-    public Recruit(Long recruitId, String title, Long salary, SalaryType salaryType,
-                   ContractType contractType, String workingPeriod,
-                   String workingHours, String deadline, String detail,
-                   String companyName, String companyAddress, IndustryType industryType,
-                   String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
+    public Recruit(Long recruitId, String title, String pay,
+                   EmploymentType employmentType, String workingPeriod,
+                   String workingHours, String deadline, String qualification,
+                   String responsibilities, String jobName, String company, String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.recruitId = recruitId;
         this.title = title;
-        this.salary = salary;
-        this.salaryType = salaryType;
-        this.contractType = contractType;
+        this.pay = pay;
+        this.employmentType = employmentType;
         this.workingPeriod = workingPeriod;
         this.workingHours = workingHours;
         this.deadline = deadline;
-        this.detail = detail;
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
+        this.qualification = qualification;
+        this.responsibilities = responsibilities;
+        this.imgUrl = imgUrl;
+        this.jobName = jobName;
+        this.company = company;
+        this.location = location;
         this.industryType = industryType;
-        this.contactName = contactName;
-        this.contactPhone = contactPhone;
-        this.contactEmail = contactEmail;
-        this.advantage = advantage;
-        this.companyLogo = companyLogo;
+        this.companyInfo = companyInfo;
+        this.preferredQualifications = preferredQualifications;
     }
 }
