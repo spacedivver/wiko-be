@@ -26,26 +26,20 @@ public class ResumeServiceImpl implements ResumeService{
     private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
 
-    @Value("${jwt.secret}")  // application.properties에서 secretKey 읽어오기
-    private String secretKey;
+//    @Override
+//    public void createResume(Long userId, ResumeRequestDto resumeRequestDto) {
+//        User user = userRepository.findById(resumeRequestDto.getUserId())
+//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
+//        Resume saveResume = resumeRepository.save(resumeRequestDto.toEntity(user));
+//        if (resumeRequestDto.getCareerType() == CareerType.경력 && resumeRequestDto.getCareerDetail() != null) {
+//            CareerRequestDto careerRequestDto = resumeRequestDto.getCareerDetail();
+//            careerRepository.save(careerRequestDto.toEntity(saveResume));
+//        }
+//    }
 
     @Override
-    public void createResume(String token, ResumeRequestDto resumeRequestDto) {
-        String loginId = jwtTokenUtil.getLoginId(token.replace("Bearer ", ""), secretKey);
-        User user = userRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-        Resume saveResume = resumeRepository.save(resumeRequestDto.toEntity(user));
-        if (resumeRequestDto.getCareerType() == CareerType.경력 && resumeRequestDto.getCareerDetail() != null) {
-            CareerRequestDto careerRequestDto = resumeRequestDto.getCareerDetail();
-            careerRepository.save(careerRequestDto.toEntity(saveResume));
-        }
-    }
-
-    @Override
-    public ResumeResponseDto readResume(String token) {
-        String loginId = jwtTokenUtil.getLoginId(token.replace("Bearer ", ""), secretKey);
-
-        User user = userRepository.findByLoginId(loginId)
+    public ResumeResponseDto readResume(Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
         Resume resume = resumeRepository.findByUserUserId(user.getUserId())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));

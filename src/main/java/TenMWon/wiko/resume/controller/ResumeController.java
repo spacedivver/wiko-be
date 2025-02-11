@@ -19,18 +19,18 @@ public class ResumeController {
 
     private final ResumeService resumeService;
 
-    @Operation(summary = "Resume 등록 API", description = "Resume 등록 API 입니다.", tags = {"Resume"})
-    @PostMapping
-    public BaseResponse<Void> createResume(
-            @RequestHeader("Authorization") String token,
-            @RequestBody ResumeRequestVo resumeRequestVo) {
-        resumeService.createResume(token, ResumeRequestDto.toDto(resumeRequestVo));
-        return new BaseResponse<>(BaseResponseStatus.SUCCESS);
-    }
+//    @Operation(summary = "Resume 등록 API", description = "Resume 등록 API 입니다.", tags = {"Resume"})
+//    @PostMapping
+//    public BaseResponse<Void> createResume(
+//            @RequestHeader Long userId,
+//            @RequestBody ResumeRequestVo resumeRequestVo) {
+//        resumeService.createResume(ResumeRequestDto.toDto(userId, resumeRequestVo));
+//        return new BaseResponse<>(BaseResponseStatus.SUCCESS);
+//    }
 
     @Operation(summary = "Resume 조회 API", description = "userId로 이력서 내용을 조회하는 API 입니다.", tags = {"Resume"})
     @GetMapping("/read")
-    public BaseResponse<ResumeResponseVo> readResume(@RequestHeader("Authorization") String token) {
-        return new BaseResponse<>(resumeService.readResume(token).toVo());
+    public BaseResponse<ResumeResponseVo> readResume(@RequestParam Long userId) {
+        return new BaseResponse<>(resumeService.readResume(userId).toVo());
     }
 }

@@ -5,6 +5,6 @@ import TenMWon.wiko.resume.dto.out.ResumeResponseDto;
 
 public interface ResumeService {
 
-    void createResume(String token, ResumeRequestDto resumeRequestDto);
-    ResumeResponseDto readResume(String token);
+//    void createResume(Long userId, ResumeRequestDto resumeRequestDto);
+    ResumeResponseDto readResume(Long userId);
 }
