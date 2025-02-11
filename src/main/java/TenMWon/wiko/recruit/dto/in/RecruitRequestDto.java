@@ -9,8 +9,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 public class RecruitRequestDto {
@@ -21,7 +19,7 @@ public class RecruitRequestDto {
     private ContractType contractType;
     private String workingPeriod;
     private String workingHours;
-    private LocalDateTime deadline;
+    private String deadline;
     private String detail;
     private String advantage;
     private String companyLogo;
@@ -35,7 +33,7 @@ public class RecruitRequestDto {
     @Builder
     public RecruitRequestDto(String title, Long salary, SalaryType salaryType,
                    ContractType contractType, String workingPeriod,
-                   String workingHours, LocalDateTime deadline, String detail,
+                   String workingHours, String deadline, String detail,
                    String companyName, String companyAddress, IndustryType industryType,
                    String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
         this.title = title;

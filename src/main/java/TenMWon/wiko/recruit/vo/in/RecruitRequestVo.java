@@ -6,8 +6,6 @@ import TenMWon.wiko.recruit.entity.SalaryType;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter
 @ToString
 public class RecruitRequestVo {
@@ -18,7 +16,7 @@ public class RecruitRequestVo {
     private ContractType contractType;
     private String workingPeriod;
     private String workingHours;
-    private LocalDateTime deadline;
+    private String deadline;
     private String detail;
     private String advantage;
     private String companyLogo;

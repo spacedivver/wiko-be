@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -30,7 +28,7 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String workingHours;
     @Column(nullable = false)
-    private LocalDateTime deadline;
+    private String deadline;
     @Column(nullable = false, length  = 1000)
     private String detail;
     @Column(nullable = false, length = 100)
@@ -56,7 +54,7 @@ public class Recruit extends BaseEntity {
     @Builder
     public Recruit(Long recruitId, String title, Long salary, SalaryType salaryType,
                    ContractType contractType, String workingPeriod,
-                   String workingHours, LocalDateTime deadline, String detail,
+                   String workingHours, String deadline, String detail,
                    String companyName, String companyAddress, IndustryType industryType,
                    String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
         this.recruitId = recruitId;
