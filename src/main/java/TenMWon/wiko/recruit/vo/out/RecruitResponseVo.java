@@ -18,7 +18,7 @@ public class RecruitResponseVo {
     private String workingPeriod;
     private String workingHours;
     private String advantage;
-//    private LocalDateTime deadline;
+//    private String deadline;
     private String detail;
     private String companyLogo;
     private String companyName;
