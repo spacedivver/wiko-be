@@ -40,9 +40,11 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
         }
 
         long total = jpaQueryFactory
-                .selectFrom(recruit)
+                .select(recruit.count())
+                .from(recruit)
                 .where(predicate)
-                .fetchCount();
+                .fetchOne();
+
         return new PageImpl<>(content, pageable, total);
     }
 
