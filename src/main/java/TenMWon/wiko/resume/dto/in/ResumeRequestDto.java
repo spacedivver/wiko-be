@@ -50,7 +50,7 @@ public class ResumeRequestDto {
                 .user(user)
                 .build();
     }
-    public static ResumeRequestDto toDto(Long userId, ResumeRequestVo resumeRequestVo) {
+    public static ResumeRequestDto toDto(ResumeRequestVo resumeRequestVo) {
         return ResumeRequestDto.builder()
                 .resumeImage(resumeRequestVo.getResumeImage())
                 .education(resumeRequestVo.getEducation())
@@ -60,7 +60,7 @@ public class ResumeRequestDto {
                 .strength(resumeRequestVo.getStrength())
                 .jobSkill(resumeRequestVo.getJobSkill())
                 .introduction(resumeRequestVo.getIntroduction())
-                .userId(userId)
+
                 .build();
     }
 }

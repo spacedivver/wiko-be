@@ -6,6 +6,7 @@ import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.QRecruit;
 import TenMWon.wiko.recruit.entity.Recruit;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,11 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
+    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
+
         QRecruit recruit = QRecruit.recruit;
 
-        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minSalary, maxSalary, recruit);
+        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, recruit);
 
         List<Recruit> content = jpaQueryFactory
                 .selectFrom(recruit)
@@ -49,7 +51,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
     }
 
     // 필터링 조건(업종, 지역, 급여)
-    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, QRecruit recruit) {
+    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
         // 업종
         if (industryTypeList != null && !industryTypeList.isEmpty()) {
@@ -60,17 +62,17 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom{
         }
         // 지역
         if (startAddress != null && endAddress != null) {
-            predicate = predicate.and(recruit.companyAddress.like(startAddress + "%"));
-            predicate = predicate.and(recruit.companyAddress.like("%" + endAddress + "%"));
+            predicate = predicate.and(recruit.location.like(startAddress + "%"));
+            predicate = predicate.and(recruit.location.like("%" + endAddress + "%"));
         } else if (startAddress != null) {
-            predicate = predicate.and(recruit.companyAddress.like(startAddress + "%"));
+            predicate = predicate.and(recruit.location.like(startAddress + "%"));
         }
         // 급여
-        if (minSalary != null) {
-            predicate = predicate.and(recruit.salary.goe(minSalary));
+        if (minPay != null) {
+            predicate = predicate.and(recruit.pay.goe(minPay.toString()));
         }
-        if (maxSalary != null) {
-            predicate = predicate.and(recruit.salary.loe(maxSalary));
+        if (maxPay != null) {
+            predicate = predicate.and(recruit.pay.loe(maxPay.toString()));
         }
         return predicate;
     }

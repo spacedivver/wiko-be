@@ -1,5 +1,6 @@
 package TenMWon.wiko.recruit.service;
 
+
 import TenMWon.wiko.common.entity.BaseResponseStatus;
 import TenMWon.wiko.common.exception.BaseException;
 import TenMWon.wiko.recruit.dto.in.RecruitRequestDto;
@@ -47,15 +48,15 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public Page<RecruitListResponseDto> readFilterRecruitList(List<String> industryTypeList, String startAddress, String endAddress, Long minSalary, Long maxSalary, Pageable pageable) {
-        Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(industryTypeList, startAddress, endAddress, minSalary, maxSalary, pageable);
+    public Page<RecruitListResponseDto> readFilterRecruitList(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
+        Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
         return recruitPage.map(RecruitListResponseDto::toDto);
     }
 
     @Override
     public Page<RecruitListResponseDto> readRecruitSearch(String keyword, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
-        Page<Recruit> recruitSearch = recruitRepository.findByTitleContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(keyword, keyword, pageable);
+        Page<Recruit> recruitSearch = recruitRepository.findByTitleContainingIgnoreCaseOrCompanyContainingIgnoreCase(keyword, keyword, pageable);
         if (recruitSearch.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
         }

@@ -1,9 +1,8 @@
 package TenMWon.wiko.recruit.dto.in;
 
-import TenMWon.wiko.recruit.entity.ContractType;
+import TenMWon.wiko.recruit.entity.EmploymentType;
 import TenMWon.wiko.recruit.entity.IndustryType;
 import TenMWon.wiko.recruit.entity.Recruit;
-import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.in.RecruitRequestVo;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,86 +13,83 @@ import lombok.NoArgsConstructor;
 public class RecruitRequestDto {
 
     private String title;
-    private Long salary;
-    private SalaryType salaryType;
-    private ContractType contractType;
+    private String pay;
+    private EmploymentType employmentType;
     private String workingPeriod;
     private String workingHours;
     private String deadline;
-    private String detail;
-    private String advantage;
-    private String companyLogo;
-    private String companyName;
-    private String companyAddress;
+    private String qualification;
+    private String responsibilities;
+    private String preferredQualifications;
+    private String imgUrl;
+    private String company;
+    private String jobName;
+    private String companyInfo;
+    private String location;
     private IndustryType industryType;
-    private String contactName;
-    private String contactPhone;
-    private String contactEmail;
 
     @Builder
-    public RecruitRequestDto(String title, Long salary, SalaryType salaryType,
-                   ContractType contractType, String workingPeriod,
-                   String workingHours, String deadline, String detail,
-                   String companyName, String companyAddress, IndustryType industryType,
-                   String contactName, String contactPhone, String contactEmail, String advantage, String companyLogo) {
+    public RecruitRequestDto(String title, String pay,
+                   EmploymentType employmentType, String workingPeriod,
+                   String workingHours, String deadline, String qualification,
+                   String responsibilities, String jobName, String company, String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.title = title;
-        this.salary = salary;
-        this.salaryType = salaryType;
-        this.contractType = contractType;
+        this.pay = pay;
+        this.employmentType = employmentType;
         this.workingPeriod = workingPeriod;
         this.workingHours = workingHours;
         this.deadline = deadline;
-        this.detail = detail;
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
+        this.qualification = qualification;
+        this.responsibilities = responsibilities;
+        this.imgUrl = imgUrl;
+        this.jobName = jobName;
+        this.company = company;
+        this.location = location;
         this.industryType = industryType;
-        this.contactName = contactName;
-        this.contactPhone = contactPhone;
-        this.contactEmail = contactEmail;
-        this.advantage = advantage;
-        this.companyLogo = companyLogo;
+        this.companyInfo = companyInfo;
+        this.preferredQualifications = preferredQualifications;
     }
 
     public Recruit toEntity() {
         return Recruit.builder()
                 .title(title)
-                .salary(salary)
-                .salaryType(salaryType)
-                .contractType(contractType)
+                .pay(pay)
+                .employmentType(employmentType)
                 .workingPeriod(workingPeriod)
                 .workingHours(workingHours)
                 .deadline(deadline)
-                .detail(detail)
-                .companyName(companyName)
-                .companyAddress(companyAddress)
+                .deadline(deadline)
+                .qualification(qualification)
+                .responsibilities(responsibilities)
+                .preferredQualifications(preferredQualifications)
+                .imgUrl(imgUrl)
+                .company(company)
+                .jobName(jobName)
+                .companyInfo(companyInfo)
+                .location(location)
                 .industryType(industryType)
-                .contactName(contactName)
-                .contactPhone(contactPhone)
-                .contactEmail(contactEmail)
-                .advantage(advantage)
-                .companyLogo(companyLogo)
                 .build();
     }
 
     public static RecruitRequestDto toDto(RecruitRequestVo recruitRequestVo) {
         return RecruitRequestDto.builder()
                 .title(recruitRequestVo.getTitle())
-                .salary(recruitRequestVo.getSalary())
-                .salaryType(recruitRequestVo.getSalaryType())
-                .contractType(recruitRequestVo.getContractType())
+                .pay(recruitRequestVo.getPay())
+                .employmentType(recruitRequestVo.getEmploymentType())
                 .workingPeriod(recruitRequestVo.getWorkingPeriod())
                 .workingHours(recruitRequestVo.getWorkingHours())
                 .deadline(recruitRequestVo.getDeadline())
-                .detail(recruitRequestVo.getDetail())
-                .companyName(recruitRequestVo.getCompanyName())
-                .companyAddress(recruitRequestVo.getCompanyAddress())
+                .qualification(recruitRequestVo.getQualification())
+                .responsibilities(recruitRequestVo.getResponsibilities())
+                .preferredQualifications(recruitRequestVo.getPreferredQualifications())
+                .imgUrl(recruitRequestVo.getImgUrl())
+                .company(recruitRequestVo.getCompany())
+                .jobName(recruitRequestVo.getJobName())
+                .companyInfo(recruitRequestVo.getCompanyInfo())
+                .location(recruitRequestVo.getLocation())
                 .industryType(recruitRequestVo.getIndustryType())
-                .contactName(recruitRequestVo.getContactName())
-                .contactPhone(recruitRequestVo.getContactPhone())
-                .contactEmail(recruitRequestVo.getContactEmail())
-                .advantage(recruitRequestVo.getAdvantage())
-                .companyLogo(recruitRequestVo.getCompanyLogo())
                 .build();
     }
+
 
 }

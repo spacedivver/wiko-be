@@ -1,7 +1,6 @@
 package TenMWon.wiko.recruit.dto.out;
 
 import TenMWon.wiko.recruit.entity.Recruit;
-import TenMWon.wiko.recruit.entity.SalaryType;
 import TenMWon.wiko.recruit.vo.out.RecruitListResponseVo;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,42 +8,42 @@ import lombok.Getter;
 @Getter
 public class RecruitListResponseDto {
 
+    private Long id;
+    private String jobName;
     private String title;
-    private String companyLogo;
-    private String companyName;
-    private String companyAddress;
-    private SalaryType salaryType;
-    private Long salary;
+    private String location;
+    private String pay;
+    private String imgUrl;
 
     @Builder
-    public RecruitListResponseDto(String title, String companyLogo, String companyName, String companyAddress, SalaryType salaryType, Long salary) {
+    public RecruitListResponseDto(Long id, String jobName, String title, String location, String pay, String imgUrl) {
+        this.id = id;
+        this.jobName = jobName;
         this.title = title;
-        this.companyLogo = companyLogo;
-        this.companyName = companyName;
-        this.companyAddress = companyAddress;
-        this.salaryType = salaryType;
-        this.salary = salary;
+        this.location = location;
+        this.pay = pay;
+        this.imgUrl = imgUrl;
     }
 
     public static RecruitListResponseDto toDto(Recruit recruit) {
         return RecruitListResponseDto.builder()
+                .id(recruit.getRecruitId())
+                .jobName(recruit.getJobName())
                 .title(recruit.getTitle())
-                .companyLogo(recruit.getCompanyLogo())
-                .companyName(recruit.getCompanyName())
-                .companyAddress(recruit.getCompanyAddress())
-                .salaryType(recruit.getSalaryType())
-                .salary(recruit.getSalary())
+                .location(recruit.getLocation())
+                .pay(recruit.getPay())
+                .imgUrl(recruit.getImgUrl())
                 .build();
     }
 
     public RecruitListResponseVo toVo() {
         return RecruitListResponseVo.builder()
+                .id(id)
                 .title(title)
-                .companyLogo(companyLogo)
-                .companyName(companyName)
-                .companyAddress(companyAddress)
-                .salaryType(salaryType)
-                .salary(salary)
+                .jobName(jobName)
+                .location(location)
+                .pay(pay)
+                .imgUrl(imgUrl)
                 .build();
     }
 }
