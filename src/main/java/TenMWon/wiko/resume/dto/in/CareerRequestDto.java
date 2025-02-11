@@ -12,30 +12,30 @@ public class CareerRequestDto {
 
     private String company;
     private Boolean isWorking;
-    private String startAt;
-    private String endAt;
-    private String workMonth;
-    private String task;
+    private String joinedAt;
+    private String leavedAt;
+    private String joinedAtMonth;
+    private String position;
 
     @Builder
     public CareerRequestDto(String company, Boolean isWorking,
-                            String startAt, String endAt, String workMonth, String task){
+                            String joinedAt, String leavedAt, String joinedAtMonth, String position){
         this.company = company;
         this.isWorking = isWorking;
-        this.startAt = startAt;
-        this.endAt = endAt;
-        this.workMonth = workMonth;
-        this.task = task;
+        this.joinedAt = joinedAt;
+        this.leavedAt = leavedAt;
+        this.joinedAtMonth = joinedAtMonth;
+        this.position = position;
     }
 
     public Career toEntity(Resume resume) {
         return Career.builder()
                 .company(company)
                 .isWorking(isWorking)
-                .startAt(startAt)
-                .endAt(endAt)
-                .workMonth(workMonth)
-                .task(task)
+                .joinedAt(joinedAt)
+                .leavedAt(leavedAt)
+                .joinedAtMonth(joinedAtMonth)
+                .position(position)
                 .resume(resume)
                 .build();
     }
@@ -44,10 +44,10 @@ public class CareerRequestDto {
         return CareerRequestDto.builder()
                 .company(career.getCompany())
                 .isWorking(career.getIsWorking())
-                .startAt(career.getStartAt())
-                .endAt(career.getEndAt())
-                .workMonth(career.getWorkMonth())
-                .task(career.getTask())
+                .joinedAt(career.getJoinedAt())
+                .leavedAt(career.getLeavedAt())
+                .joinedAtMonth(career.getJoinedAtMonth())
+                .position(career.getPosition())
                 .build();
     }
 }

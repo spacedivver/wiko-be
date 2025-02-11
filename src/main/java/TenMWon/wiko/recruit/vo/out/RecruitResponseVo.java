@@ -1,7 +1,6 @@
 package TenMWon.wiko.recruit.vo.out;
 
-import TenMWon.wiko.recruit.entity.ContractType;
-import TenMWon.wiko.recruit.entity.SalaryType;
+import TenMWon.wiko.recruit.entity.EmploymentType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -11,20 +10,16 @@ import lombok.ToString;
 @Builder
 public class RecruitResponseVo {
 
-    private String title;
-    private Long salary;
-    private SalaryType salaryType;
-    private ContractType contractType;
-    private String workingPeriod;
-    private String workingHours;
-    private String advantage;
-//    private String deadline;
-    private String detail;
-    private String companyLogo;
-    private String companyName;
-    private String companyAddress;
-//    private IndustryType industryType;
-    private String contactName;
-    private String contactPhone;
-    private String contactEmail;
+    private String imgUrl;
+    private String company;
+    private String location;
+    private String companyInfo;
+    private String responsibilities;
+    private String qualifications;
+    private String pay;
+    private EmploymentType employmentType;
+    private String workPeriod;
+    private String workHours;
+    private String preferredQualifications;
+
 }

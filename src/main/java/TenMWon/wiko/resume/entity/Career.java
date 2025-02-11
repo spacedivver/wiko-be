@@ -18,28 +18,28 @@ public class Career {
     @Column(length = 100)
     private Boolean isWorking;
     @Column(length = 100)
-    private String startAt;
+    private String joinedAt;
     @Column(length = 100)
-    private String endAt;
+    private String leavedAt;
     @Column(length = 100)
-    private String workMonth;
+    private String joinedAtMonth;
     @Column(length = 1000)
-    private String task;
+    private String position;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resumeId", nullable = false)
     private Resume resume;
 
     @Builder
-    public Career(Long careerId, String company, Boolean isWorking, String workMonth,
-                  String startAt, String endAt, String task, Resume resume) {
+    public Career(Long careerId, String company, Boolean isWorking, String joinedAtMonth,
+                  String joinedAt, String leavedAt, String position, Resume resume) {
         this.careerId = careerId;
         this.company = company;
         this.isWorking = isWorking;
-        this.workMonth = workMonth;
-        this.startAt = startAt;
-        this.endAt = endAt;
-        this.task = task;
+        this.joinedAtMonth = joinedAtMonth;
+        this.joinedAt = joinedAt;
+        this.leavedAt = leavedAt;
+        this.position = position;
         this.resume = resume;
     }
 }

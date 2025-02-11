@@ -3,9 +3,11 @@ package TenMWon.wiko.security.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtTokenUtil {
 
     // JWT Token 발급

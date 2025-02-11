@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/recruit")
+@RequestMapping("/recruit")
 public class RecruitController {
 
     private final RecruitService recruitService;
@@ -46,14 +46,14 @@ public class RecruitController {
             @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
             @RequestParam(required = false) String endAddress,
-            @RequestParam(required = false) Long minSalary,
-            @RequestParam(required = false) Long maxSalary,
+            @RequestParam(required = false) Long minPay,
+            @RequestParam(required = false) Long maxPay,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         return recruitService.readFilterRecruitList(industryTypeList, startAddress, endAddress,
-                minSalary, maxSalary, pageable);
+                minPay, maxPay, pageable);
     }
 
     @Operation(summary = "Recruit 검색 API", description = "recruit 검색내용을 조회하는 API 입니다.", tags = {"Recruit"})
