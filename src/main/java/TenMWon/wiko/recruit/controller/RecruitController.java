@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/recruit")
+@RequestMapping("/recruit")
 public class RecruitController {
 
     private final RecruitService recruitService;
