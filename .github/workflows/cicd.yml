@@ -87,7 +87,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          run: |
+          script: |
             echo "REMOTE_DIR is: '$REMOTE_DIR'"
             echo "Stopping any running Java application..."
             pkill -f "java -jar ${REMOTE_DIR}/build/wiko-0.0.1-SNAPSHOT.jar" || echo "No running Java process found."
