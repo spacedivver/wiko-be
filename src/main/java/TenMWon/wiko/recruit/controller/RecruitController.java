@@ -42,7 +42,7 @@ public class RecruitController {
 
     @Operation(summary = "Recruit 필터링, 검색 API", description = "업종, 지역, 급여별 필터링 조회 및 검색 API 입니다.", tags = {"Recruit"})
     @GetMapping("/filterList")
-    public Page<RecruitListResponseDto> readFilterRecruitList(
+    public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitList(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
@@ -53,8 +53,10 @@ public class RecruitController {
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        return recruitService.readFilterRecruitListWithSearch(keyword, industryTypeList, startAddress, endAddress,
-                minPay, maxPay, pageable);
+        Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithSearch(
+                keyword, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable
+        );
+        return new BaseResponse<>(result);
     }
 
 //    @Operation(summary = "Recruit 검색 API", description = "recruit 검색내용을 조회하는 API 입니다.", tags = {"Recruit"})
