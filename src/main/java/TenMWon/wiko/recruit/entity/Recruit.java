@@ -47,11 +47,19 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false)
     private IndustryType industryType;
 
+    @Column(nullable = false, length = 100)
+    private String owner;
+    @Column(nullable = false, length = 100)
+    private String phone;
+    @Column(nullable = false, length = 100)
+    private String email;
+
     @Builder
     public Recruit(Long recruitId, String title, String pay,
                    EmploymentType employmentType, String workingPeriod,
                    String workingHours, String deadline, String qualification,
-                   String responsibilities, String jobName, String company, String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
+                   String responsibilities, String jobName, String company, String owner, String phone, String email,
+                   String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.recruitId = recruitId;
         this.title = title;
         this.pay = pay;
@@ -68,5 +76,8 @@ public class Recruit extends BaseEntity {
         this.industryType = industryType;
         this.companyInfo = companyInfo;
         this.preferredQualifications = preferredQualifications;
+        this.owner = owner;
+        this.phone = phone;
+        this.email = email;
     }
 }

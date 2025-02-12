@@ -21,5 +21,8 @@ public class RecruitResponseVo {
     private String workPeriod;
     private String workHours;
     private String preferredQualifications;
+    private String owner;
+    private String phone;
+    private String email;
 
 }
