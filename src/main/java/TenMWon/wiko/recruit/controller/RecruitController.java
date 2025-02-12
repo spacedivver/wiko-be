@@ -60,16 +60,6 @@ public class RecruitController {
         return new BaseResponse<>(result);
     }
 
-//    @Operation(summary = "Recruit 검색 API", description = "recruit 검색내용을 조회하는 API 입니다.", tags = {"Recruit"})
-//    @GetMapping("/search")
-//    public BaseResponse<Page<RecruitListResponseDto>> readRecruitSearch(
-//            @RequestParam String keyword,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//        Page<RecruitListResponseDto> recruitsSearch = recruitService.readRecruitSearch(keyword, page, size);
-//        return new BaseResponse<>(recruitsSearch);
-//    }
-
     @Operation(summary = "Recruit 상세 조회 API", description = "recruitId로 일자리 정보의 상세 내용을 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/detail")
     public BaseResponse<RecruitResponseVo> readRecruitDetail(@RequestParam Long recruitId) {

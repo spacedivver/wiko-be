@@ -8,8 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 
 public interface RecruitRepository extends JpaRepository<Recruit, Long> {
-//    Page<Recruit> findByTitleContainingIgnoreCaseOrCompanyContainingIgnoreCase(String keyword, String keyword1, Pageable pageable);
     Page<Recruit> findByCreatedAtAfter(LocalDateTime startOfDay, Pageable pageable);
-
-
 }

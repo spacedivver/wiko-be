@@ -67,29 +67,3 @@ public class ResumeServiceImpl implements ResumeService {
         resumeRepository.deleteByResumeId(resumeId);
     }
 }
-
-//    @Override
-//    public ResumeListResponseDto readResume(String loginId) {
-//        User user = userRepository.findByLoginId(loginId)
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-//        Resume resume = resumeRepository.findByUserUserId(user.getUserId())
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
-//        CareerRequestDto careerDetail = null;
-//        if (resume.getCareerType() == CareerType.경력) {
-//            Career career = careerRepository.findByResumeResumeId(resume.getResumeId()).orElse(null);
-//            if (career != null) {
-//                careerDetail = CareerRequestDto.toDto(career);
-//            }
-//        }
-//        return ResumeListResponseDto.toDto(resume, careerDetail);
-//    }
-
-//    @Override
-//    public void updateResumeImage(String loginId, ResumeImageRequestDto resumeImageRequestDto) {
-//        User user = userRepository.findByLoginId(loginId)
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-//        Resume resume = resumeRepository.findByUserUserId(user.getUserId())
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
-//        resumeRepository.save(resumeImageRequestDto.toUpdate(resume));
-//    }
-//}
