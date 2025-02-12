@@ -14,7 +14,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-        // 인증되지 않은 사용자에게 401 Unauthorized 응답을 보냅니다.
+        // 인증되지 않은 요청에 대해 401 Unauthorized 응답 전송
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }

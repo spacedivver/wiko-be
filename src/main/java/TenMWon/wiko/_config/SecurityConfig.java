@@ -1,15 +1,19 @@
 package TenMWon.wiko._config;
 
 import TenMWon.wiko.User.domain.entity.UserRole;
+import TenMWon.wiko.User.service.UserService;
+import TenMWon.wiko.security.filter.JwtTokenFilter;
 import TenMWon.wiko.security.handler.MyAccessDeniedHandler;
 import TenMWon.wiko.security.handler.MyAuthenticationEntryPoint;
 import TenMWon.wiko.security.service.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +21,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
+    private final UserService userService;
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     @Bean
     public SecurityFilterChain securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
@@ -32,23 +40,8 @@ public class SecurityConfig {
                         // 그 외의 모든 요청은 허용
                         .anyRequest().permitAll()
                 )
-                // 폼 로그인 설정
-                .formLogin(form -> form
-                        .usernameParameter("loginId")
-                        .passwordParameter("password")
-                        .loginPage("/jwt-login/login")       // 커스텀 로그인 페이지 URL
-                        .defaultSuccessUrl("/jwt-login")       // 로그인 성공 시 이동할 URL
-                        .failureUrl("/jwt-login/login")        // 로그인 실패 시 이동할 URL
-                )
-                // 로그아웃 설정
-                .logout(logout -> logout
-                        .logoutUrl("/jwt-login/logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                )
-                // OAuth2 로그인 설정 (예: Google 로그인)
+                // OAuth2 로그인 설정
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/jwt-login/login")
                         .defaultSuccessUrl("/jwt-login")
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(principalOauth2UserService)
@@ -63,6 +56,9 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new MyAuthenticationEntryPoint())
                         .accessDeniedHandler(new MyAccessDeniedHandler())
                 );
+
+        // JWT 토큰 필터 추가: 모든 요청 전에 JWT 토큰을 검증합니다.
+        http.addFilterBefore(new JwtTokenFilter(userService, jwtSecret), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
