@@ -23,11 +23,11 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
+    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, Pageable pageable) {
 
         QRecruit recruit = QRecruit.recruit;
 
-        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, recruit);
+        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, recruit);
 
         List<Recruit> content = jpaQueryFactory
                 .selectFrom(recruit)
@@ -49,9 +49,16 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
+
     // 필터링 조건(업종, 지역, 급여)
-    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, QRecruit recruit) {
+    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
+
+        // 검색
+        if (keyword != null && !keyword.isEmpty()) {
+            predicate = predicate.and(recruit.title.containsIgnoreCase(keyword)
+                    .or(recruit.company.containsIgnoreCase(keyword)));
+        }
         // 업종
         if (industryTypeList != null && !industryTypeList.isEmpty()) {
             List<IndustryType> formattedTypes = industryTypeList.stream()
