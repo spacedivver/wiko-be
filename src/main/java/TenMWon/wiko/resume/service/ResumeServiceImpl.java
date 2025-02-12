@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ResumeServiceImpl implements ResumeService{
+public class ResumeServiceImpl implements ResumeService {
 
     private final ResumeRepository resumeRepository;
     private final CareerRepository careerRepository;
@@ -60,6 +60,14 @@ public class ResumeServiceImpl implements ResumeService{
         });
     }
 
+    @Override
+    public void deleteResume(Long resumeId) {
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
+        resumeRepository.deleteByResumeId(resumeId);
+    }
+}
+
 //    @Override
 //    public ResumeListResponseDto readResume(String loginId) {
 //        User user = userRepository.findByLoginId(loginId)
@@ -84,4 +92,4 @@ public class ResumeServiceImpl implements ResumeService{
 //                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
 //        resumeRepository.save(resumeImageRequestDto.toUpdate(resume));
 //    }
-}
+//}

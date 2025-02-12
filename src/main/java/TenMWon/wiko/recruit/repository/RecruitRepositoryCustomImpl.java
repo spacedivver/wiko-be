@@ -70,6 +70,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         if (startAddress != null && endAddress != null) {
             predicate = predicate.and(recruit.location.like(startAddress + "%"));
             predicate = predicate.and(recruit.location.like("%" + endAddress + "%"));
+//            predicate = predicate.and(recruit.location.like(endAddress + "%"));
         } else if (startAddress != null) {
             predicate = predicate.and(recruit.location.like(startAddress + "%"));
         }

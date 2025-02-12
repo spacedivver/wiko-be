@@ -9,5 +9,6 @@ public interface ResumeService {
 
     void createResume(ResumeRequestDto resumeRequestDto);
     Page<ResumeListResponseDto> readResumeList(int page, int size, String loginId);
+    void deleteResume(Long resumeId);
 //    void updateResumeImage(String loginId, ResumeImageRequestDto resumeImageRequestDto);
 }

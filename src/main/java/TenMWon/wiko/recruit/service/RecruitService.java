@@ -17,5 +17,6 @@ public interface RecruitService {
     Page<RecruitListResponseDto> readFilterRecruitListWithSearch
             (String keyword, List<String> industryTypeList, String startAddress, String endAddress,
              Long minPay, Long maxPay, Pageable pageable);
+    Page<RecruitListResponseDto> readTodayRecruit(int page, int size);
 //    Page<RecruitListResponseDto> readRecruitSearch(String keyword, int page, int size);
 }
