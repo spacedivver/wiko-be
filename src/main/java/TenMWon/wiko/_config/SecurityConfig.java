@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
                 // URL에 대한 보안 규칙을 설정합니다.
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/jwt-login/info").authenticated()
+                        .requestMatchers("/jwt-login/profile").authenticated()
                         .requestMatchers("/jwt-login/admin/**").hasAuthority(UserRole.ADMIN.name())
                         .anyRequest().permitAll()  // 기타 요청은 모두 허용 (필요에 따라 조정)
                 )
