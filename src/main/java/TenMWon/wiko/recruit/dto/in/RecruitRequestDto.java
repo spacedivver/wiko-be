@@ -27,12 +27,15 @@ public class RecruitRequestDto {
     private String companyInfo;
     private String location;
     private IndustryType industryType;
+    private String owner;
+    private String phone;
+    private String email;
 
     @Builder
     public RecruitRequestDto(String title, String pay,
                    EmploymentType employmentType, String workingPeriod,
-                   String workingHours, String deadline, String qualification,
-                   String responsibilities, String jobName, String company, String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
+                   String workingHours, String deadline, String qualification, String owner, String phone, String email,
+                   String responsibilities, String jobName, String company,String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.title = title;
         this.pay = pay;
         this.employmentType = employmentType;
@@ -48,6 +51,9 @@ public class RecruitRequestDto {
         this.industryType = industryType;
         this.companyInfo = companyInfo;
         this.preferredQualifications = preferredQualifications;
+        this.owner = owner;
+        this.phone = phone;
+        this.email = email;
     }
 
     public Recruit toEntity() {
@@ -68,6 +74,9 @@ public class RecruitRequestDto {
                 .companyInfo(companyInfo)
                 .location(location)
                 .industryType(industryType)
+                .owner(owner)
+                .phone(phone)
+                .email(email)
                 .build();
     }
 
@@ -88,6 +97,9 @@ public class RecruitRequestDto {
                 .companyInfo(recruitRequestVo.getCompanyInfo())
                 .location(recruitRequestVo.getLocation())
                 .industryType(recruitRequestVo.getIndustryType())
+                .owner(recruitRequestVo.getOwner())
+                .phone(recruitRequestVo.getPhone())
+                .email(recruitRequestVo.getEmail())
                 .build();
     }
 
