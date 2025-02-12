@@ -19,7 +19,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         this.user = user;
     }
 
-    // OAuth2 로그인 시 생성자
+    // OAuth2 로그인 시 생성자 (OAuth2 공급자로부터 받은 속성 포함)
     public PrincipalDetails(User user, Map<String, Object> attributes) {
         this.user = user;
         this.attributes = attributes;
@@ -71,8 +71,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        // 보통 OAuth2User에서는 고유 식별자(sub 등)를 반환하지만,
-        // 여기서는 필요에 따라 loginId 등을 반환할 수 있음.
         return user.getLoginId();
     }
 }

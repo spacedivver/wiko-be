@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/jwt-login")
@@ -31,22 +30,20 @@ public class UserController {
     @Operation(summary="회원가입")
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequest joinRequest) {
-
         if (userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("로그인 아이디가 중복됩니다.");
         }
-
         if (!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("비밀번호가 일치하지 않습니다.");
         }
-
         userService.join(joinRequest);
         return ResponseEntity.ok("회원가입 성공");
     }
+
     @Operation(summary="아이디 중복체크")
     @GetMapping("/check-duplicate")
     public ResponseEntity<Map<String, Object>> checkDuplicate(@RequestParam("loginId") String loginId) {
@@ -66,17 +63,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         User user = userService.login(loginRequest);
-
         if(user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("로그인 아이디 또는 비밀번호가 틀렸습니다.");
         }
 
         String secretKey = "my-secret-key-123123";
-        long expireTimeMs = 1000 * 60 * 60; // Token 유효 시간 = 60분
-
+        long expireTimeMs = 1000 * 60 * 60; // 60분 유효
         String jwtToken = JwtTokenUtil.createToken(user.getLoginId(), secretKey, expireTimeMs);
-
         LoginResponse response = new LoginResponse("로그인 성공", jwtToken);
         return ResponseEntity.ok(response);
     }
@@ -93,14 +87,7 @@ public class UserController {
     @GetMapping("/profile")
     public ResponseEntity<UserProfileResponse> getProfile(Authentication authentication) {
         String loginId = authentication.getName();
-
         UserProfileResponse userProfile = userService.getUserProfile(loginId);
         return ResponseEntity.ok(userProfile);
     }
-
-
-//    @GetMapping("/admin")
-//    public String adminPage() {
-//        return "관리자 페이지 접근 성공";
-//    }
 }
