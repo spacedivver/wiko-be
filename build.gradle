@@ -60,6 +60,9 @@ dependencies {
 
 	// 구글 Oauth
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.31'
+
 }
 
 
