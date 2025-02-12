@@ -22,10 +22,10 @@ public class ResumeRequestDto {
     private List<String> strength;
     private List<String> jobSkill;
     private String introduction;
-    private Long userId;
+    private String loginId;
 
     @Builder
-    public ResumeRequestDto(Long userId, String resumeImage, String education, String languageSkill, CareerType careerType,
+    public ResumeRequestDto(String loginId, String resumeImage, String education, String languageSkill, CareerType careerType,
                             List<String> strength, List<String> jobSkill, String introduction, CareerRequestDto careerDetail) {
         this.resumeImage = resumeImage;
         this.education = education;
@@ -35,7 +35,7 @@ public class ResumeRequestDto {
         this.jobSkill = jobSkill;
         this.introduction = introduction;
         this.careerDetail = careerDetail;
-        this.userId = userId;
+        this.loginId = loginId;
     }
 
     public Resume toEntity(User user) {
@@ -50,7 +50,7 @@ public class ResumeRequestDto {
                 .user(user)
                 .build();
     }
-    public static ResumeRequestDto toDto(Long userId, ResumeRequestVo resumeRequestVo) {
+    public static ResumeRequestDto toDto(String loginId, ResumeRequestVo resumeRequestVo) {
         return ResumeRequestDto.builder()
                 .resumeImage(resumeRequestVo.getResumeImage())
                 .education(resumeRequestVo.getEducation())
@@ -60,7 +60,7 @@ public class ResumeRequestDto {
                 .strength(resumeRequestVo.getStrength())
                 .jobSkill(resumeRequestVo.getJobSkill())
                 .introduction(resumeRequestVo.getIntroduction())
-                .userId(userId)
+                .loginId(loginId)
                 .build();
     }
 }

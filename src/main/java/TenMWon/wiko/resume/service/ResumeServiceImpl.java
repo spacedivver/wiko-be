@@ -12,6 +12,7 @@ import TenMWon.wiko.resume.entity.CareerType;
 import TenMWon.wiko.resume.entity.Resume;
 import TenMWon.wiko.resume.repository.CareerRepository;
 import TenMWon.wiko.resume.repository.ResumeRepository;
+import org.springframework.security.core.Authentication;
 import TenMWon.wiko.security.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,22 +25,21 @@ public class ResumeServiceImpl implements ResumeService{
     private final ResumeRepository resumeRepository;
     private final CareerRepository careerRepository;
     private final UserRepository userRepository;
-    private final JwtTokenUtil jwtTokenUtil;
-
-//    @Override
-//    public void createResume(Long userId, ResumeRequestDto resumeRequestDto) {
-//        User user = userRepository.findById(resumeRequestDto.getUserId())
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-//        Resume saveResume = resumeRepository.save(resumeRequestDto.toEntity(user));
-//        if (resumeRequestDto.getCareerType() == CareerType.경력 && resumeRequestDto.getCareerDetail() != null) {
-//            CareerRequestDto careerRequestDto = resumeRequestDto.getCareerDetail();
-//            careerRepository.save(careerRequestDto.toEntity(saveResume));
-//        }
-//    }
 
     @Override
-    public ResumeResponseDto readResume(Long userId) {
-        User user = userRepository.findById(userId)
+    public void createResume(ResumeRequestDto resumeRequestDto) {
+        User user = userRepository.findByLoginId(resumeRequestDto.getLoginId())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
+        Resume saveResume = resumeRepository.save(resumeRequestDto.toEntity(user));
+        if (resumeRequestDto.getCareerType() == CareerType.경력 && resumeRequestDto.getCareerDetail() != null) {
+            CareerRequestDto careerRequestDto = resumeRequestDto.getCareerDetail();
+            careerRepository.save(careerRequestDto.toEntity(saveResume));
+        }
+    }
+
+    @Override
+    public ResumeResponseDto readResume(String loginId) {
+        User user = userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
         Resume resume = resumeRepository.findByUserUserId(user.getUserId())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
