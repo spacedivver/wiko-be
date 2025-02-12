@@ -23,6 +23,10 @@ public class RecruitResponseDto {
     private String workPeriod;
     private String workHours;
     private String preferredQualifications;
+    private String owner;
+    private String phone;
+    private String email;
+
 
     public static RecruitResponseDto toDto(Recruit recruit) {
         return RecruitResponseDto.builder()
@@ -37,6 +41,9 @@ public class RecruitResponseDto {
                 .workPeriod(recruit.getWorkingPeriod())
                 .workHours(recruit.getWorkingHours())
                 .preferredQualifications(recruit.getPreferredQualifications())
+                .owner(recruit.getOwner())
+                .phone(recruit.getPhone())
+                .email(recruit.getEmail())
                 .build();
     }
 
@@ -53,6 +60,9 @@ public class RecruitResponseDto {
                 .workPeriod(workPeriod)
                 .workHours(workHours)
                 .preferredQualifications(preferredQualifications)
+                .owner(owner)
+                .phone(phone)
+                .email(email)
                 .build();
     }
 }
