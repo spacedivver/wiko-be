@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @ToString
 @Builder
-public class ResumeResponseDto {
+public class ResumeListResponseDto {
 
     private String resumeImage;
     private String education;
@@ -24,8 +24,8 @@ public class ResumeResponseDto {
     private List<String> jobSkill;
     private String introduction;
 
-    public static ResumeResponseDto toDto(Resume resume, CareerRequestDto careerDetail) {
-        return ResumeResponseDto.builder()
+    public static ResumeListResponseDto toDto(Resume resume, CareerRequestDto careerDetail) {
+        return ResumeListResponseDto.builder()
                 .resumeImage(resume.getResumeImage())
                 .education(resume.getEducation())
                 .languageSkill(resume.getLanguageSkill())
