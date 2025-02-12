@@ -74,25 +74,15 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
     }
 
     private BooleanExpression convertPayToLong(StringPath pay, Long minPay, Long maxPay) {
-        // 쉼표, '만원', '원', '연봉', '월급', '시급' 등 제거하고 숫자만 추출
-        StringTemplate payWithoutSymbols = Expressions.stringTemplate("replace(replace(replace(replace(replace({0}, ',', ''), '만원', ''), '원', ''), '연봉', ''), '월급', '')", pay);
-
-        // 숫자만 추출한 값으로 Long 타입으로 변환
+        StringTemplate payWithoutSymbols = Expressions.stringTemplate("replace({0}, ',', '')", pay);
         NumberTemplate<Long> payValue = Expressions.numberTemplate(Long.class, "{0}", payWithoutSymbols);
-
-        // 급여 조건 초기화
         BooleanExpression condition = null;
-
-        // minPay 조건 추가
         if (minPay != null) {
-            condition = payValue.goe(minPay);  // minPay보다 크거나 같은 급여만 필터링
+            condition = payValue.goe(minPay);
         }
-
-        // maxPay 조건 추가
         if (maxPay != null) {
-            condition = condition == null ? payValue.loe(maxPay) : condition.and(payValue.loe(maxPay));  // maxPay보다 작거나 같은 급여만 필터링
+            condition = condition == null ? payValue.loe(maxPay) : condition.and(payValue.loe(maxPay));
         }
-
         return condition;
     }
 }
