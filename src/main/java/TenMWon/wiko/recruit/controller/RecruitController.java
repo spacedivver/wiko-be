@@ -84,7 +84,7 @@ public class RecruitController {
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
-    @Operation(summary = "Recruit 지역 연계 + 필터링 API", description = "업종, 지역, 급여별 필터링 조회 및 지역 연계 recruit 조회하는 API 입니다.", tags = {"Recruit"})
+    @Operation(summary = "Recruit 지역 연계 + 필터링 + 검색 API", description = "업종, 지역, 급여별 필터링 조회 및 검색, 지역 연계 recruit 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/localFilter")
     public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitListWithLocal(
             @RequestParam(required = false) String keyword,
