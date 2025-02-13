@@ -9,4 +9,6 @@ import java.util.List;
 public interface RecruitRepositoryCustom {
 
     Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, Pageable pageable);
+//    Page<Recruit> findLocalRecruitWithFilter(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable);
+
 }

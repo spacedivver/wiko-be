@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class RecruitRequestDto {
 
     private String title;
+    private String payType;
     private String pay;
     private EmploymentType employmentType;
     private String workingPeriod;
@@ -30,9 +31,10 @@ public class RecruitRequestDto {
     private String owner;
     private String phone;
     private String email;
+    private Boolean local;
 
     @Builder
-    public RecruitRequestDto(String title, String pay,
+    public RecruitRequestDto(String title, String pay, String payType, Boolean local,
                    EmploymentType employmentType, String workingPeriod,
                    String workingHours, String deadline, String qualification, String owner, String phone, String email,
                    String responsibilities, String jobName, String company,String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
@@ -54,12 +56,16 @@ public class RecruitRequestDto {
         this.owner = owner;
         this.phone = phone;
         this.email = email;
+        this.payType = payType;
+        this.local = local;
     }
 
     public Recruit toEntity() {
         return Recruit.builder()
                 .title(title)
                 .pay(pay)
+                .payType(payType)
+                .local(local)
                 .employmentType(employmentType)
                 .workingPeriod(workingPeriod)
                 .workingHours(workingHours)
@@ -100,6 +106,8 @@ public class RecruitRequestDto {
                 .owner(recruitRequestVo.getOwner())
                 .phone(recruitRequestVo.getPhone())
                 .email(recruitRequestVo.getEmail())
+                .payType(recruitRequestVo.getPayType())
+                .local(recruitRequestVo.getLocal())
                 .build();
     }
 

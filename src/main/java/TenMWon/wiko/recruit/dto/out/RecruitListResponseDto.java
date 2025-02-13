@@ -12,15 +12,17 @@ public class RecruitListResponseDto {
     private String jobName;
     private String title;
     private String location;
+    private String payType;
     private String pay;
     private String imgUrl;
 
     @Builder
-    public RecruitListResponseDto(Long id, String jobName, String title, String location, String pay, String imgUrl) {
+    public RecruitListResponseDto(Long id, String jobName, String payType, String title, String location, String pay, String imgUrl) {
         this.id = id;
         this.jobName = jobName;
         this.title = title;
         this.location = location;
+        this.payType = payType;
         this.pay = pay;
         this.imgUrl = imgUrl;
     }
@@ -31,6 +33,7 @@ public class RecruitListResponseDto {
                 .jobName(recruit.getJobName())
                 .title(recruit.getTitle())
                 .location(recruit.getLocation())
+                .payType(recruit.getPayType())
                 .pay(recruit.getPay())
                 .imgUrl(recruit.getImgUrl())
                 .build();
@@ -42,6 +45,7 @@ public class RecruitListResponseDto {
                 .title(title)
                 .jobName(jobName)
                 .location(location)
+                .payType(payType)
                 .pay(pay)
                 .imgUrl(imgUrl)
                 .build();

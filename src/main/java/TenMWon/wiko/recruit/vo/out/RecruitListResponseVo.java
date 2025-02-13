@@ -13,6 +13,7 @@ public class RecruitListResponseVo {
     private String jobName;
     private String title;
     private String location;
+    private String payType;
     private String pay;
     private String imgUrl;
 

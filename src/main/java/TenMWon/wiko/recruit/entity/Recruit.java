@@ -53,15 +53,21 @@ public class Recruit extends BaseEntity {
     private String phone;
     @Column(nullable = false, length = 100)
     private String email;
+    @Column(nullable = false, length = 100)
+    private String payType;
+    @Column(nullable = false)
+    private Boolean local;
 
     @Builder
-    public Recruit(Long recruitId, String title, String pay,
+    public Recruit(Long recruitId, String title, String pay, String payType, Boolean local,
                    EmploymentType employmentType, String workingPeriod,
                    String workingHours, String deadline, String qualification,
                    String responsibilities, String jobName, String company, String owner, String phone, String email,
                    String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.recruitId = recruitId;
         this.title = title;
+        this.payType = payType;
+        this.local = local;
         this.pay = pay;
         this.employmentType = employmentType;
         this.workingPeriod = workingPeriod;

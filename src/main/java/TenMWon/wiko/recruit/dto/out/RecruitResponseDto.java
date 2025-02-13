@@ -18,6 +18,7 @@ public class RecruitResponseDto {
     private String companyInfo;
     private String responsibilities;
     private String qualifications;
+    private String payType;
     private String pay;
     private EmploymentType employmentType;
     private String workPeriod;
@@ -36,6 +37,7 @@ public class RecruitResponseDto {
                 .companyInfo(recruit.getCompanyInfo())
                 .responsibilities(recruit.getResponsibilities())
                 .qualifications(recruit.getQualification())
+                .payType(recruit.getPayType())
                 .pay(recruit.getPay())
                 .employmentType(recruit.getEmploymentType())
                 .workPeriod(recruit.getWorkingPeriod())
@@ -55,6 +57,7 @@ public class RecruitResponseDto {
                 .companyInfo(companyInfo)
                 .responsibilities(responsibilities)
                 .qualifications(qualifications)
+                .payType(payType)
                 .pay(pay)
                 .employmentType(employmentType)
                 .workPeriod(workPeriod)
