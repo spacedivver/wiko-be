@@ -10,7 +10,7 @@ import lombok.ToString;
 public class RecruitListResponseVo {
 
     private Long id;
-    private String jobName;
+    private String company;
     private String title;
     private String location;
     private String payType;
