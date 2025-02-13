@@ -45,6 +45,41 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
 
         return new PageImpl<>(content, pageable, total);
     }
+
+    @Override
+    public Page<Recruit> findRecruitWithFiltersLang(String lang, Pageable pageable) {
+        QRecruit recruit = QRecruit.recruit;
+
+        BooleanExpression predicate = buildLangPredicate(lang, recruit);
+
+        List<Recruit> content = jpaQueryFactory
+                .selectFrom(recruit)
+                .where(predicate)
+                .orderBy(recruit.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = jpaQueryFactory
+                .select(recruit.count())
+                .from(recruit)
+                .where(predicate)
+                .fetchOne();
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    private BooleanExpression buildLangPredicate(String lang, QRecruit recruit) {
+        BooleanExpression predicate = recruit.isNotNull();
+
+        // 언어
+        if (lang != null && !lang.isEmpty()) {
+            predicate = predicate.and(recruit.lang.eq(lang)); // recruit DB -> lang == RequestParam -> lang
+        }
+
+        return predicate;
+    }
+
     private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, String lang, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 

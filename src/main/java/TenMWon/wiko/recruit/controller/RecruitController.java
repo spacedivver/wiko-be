@@ -70,9 +70,10 @@ public class RecruitController {
     @Operation(summary = "오늘의 Recruit 조회 API", description = "오늘의 일자리 공고 정보 내용을 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/today")
     public BaseResponse<Page<RecruitListResponseDto>> readTodayRecruit(
+            @RequestParam(required = false) String lang,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readTodayRecruit(page, size);
+            @RequestParam(defaultValue = "6") int size) {
+        Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readTodayRecruit(lang, page, size);
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
