@@ -24,5 +24,8 @@ public class RecruitRequestVo {
     private String companyInfo;
     private String location;
     private IndustryType industryType;
+    private String owner;
+    private String phone;
+    private String email;
 
 }
