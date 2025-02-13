@@ -48,7 +48,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
     private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 
-//         검색 (title을 사용한 검색을 진행)
+        // 검색 (title을 사용한 검색을 진행)
         if (keyword != null && !keyword.isEmpty()) {
             predicate = predicate.and(recruit.title.containsIgnoreCase(keyword));
         }
@@ -67,22 +67,13 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
             predicate = predicate.and(recruit.location.like(startAddress + "%"));
         }
 
-        if (minPay != null || maxPay != null) {
-            predicate = predicate.and(convertPayToLong(recruit.pay, minPay, maxPay));
-        }
-        return predicate;
-    }
-
-    private BooleanExpression convertPayToLong(StringPath pay, Long minPay, Long maxPay) {
-        StringTemplate payWithoutSymbols = Expressions.stringTemplate("replace({0}, ',', '')", pay);
-        NumberTemplate<Long> payValue = Expressions.numberTemplate(Long.class, "{0}", payWithoutSymbols);
-        BooleanExpression condition = null;
+        // 급여
         if (minPay != null) {
-            condition = condition == null ? payValue.goe(minPay) : condition.and(payValue.goe(minPay));
+            predicate = predicate.and(recruit.pay.goe(minPay));
         }
         if (maxPay != null) {
-            condition = condition == null ? payValue.loe(maxPay) : condition.and(payValue.loe(maxPay));
+            predicate = predicate.and(recruit.pay.loe(maxPay));
         }
-        return condition;
+        return predicate;
     }
 }

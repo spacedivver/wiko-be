@@ -13,11 +13,11 @@ public class RecruitListResponseDto {
     private String title;
     private String location;
     private String payType;
-    private String pay;
+    private Long pay;
     private String imgUrl;
 
     @Builder
-    public RecruitListResponseDto(Long id, String jobName, String payType, String title, String location, String pay, String imgUrl) {
+    public RecruitListResponseDto(Long id, String jobName, String payType, String title, String location, Long pay, String imgUrl) {
         this.id = id;
         this.jobName = jobName;
         this.title = title;
