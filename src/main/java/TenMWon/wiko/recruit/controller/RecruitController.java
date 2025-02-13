@@ -45,6 +45,7 @@ public class RecruitController {
     @GetMapping("/filterList")
     public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitList(
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String lang,
             @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
             @RequestParam(required = false) String endAddress,
@@ -55,7 +56,7 @@ public class RecruitController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithSearch(
-                keyword, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable
+                keyword, lang, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable
         );
         return new BaseResponse<>(result);
     }
@@ -88,6 +89,7 @@ public class RecruitController {
     @GetMapping("/localFilter")
     public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitListWithLocal(
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String lang,
             @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
             @RequestParam(required = false) String endAddress,
@@ -97,7 +99,7 @@ public class RecruitController {
             @RequestParam(defaultValue = "10") int size) {
         {
             Pageable pageable = PageRequest.of(page, size);
-            Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithLocal(keyword, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
+            Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithLocal(keyword, lang, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
             return new BaseResponse<>(result);
         }
     }

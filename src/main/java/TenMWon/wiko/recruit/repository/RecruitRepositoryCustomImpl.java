@@ -23,11 +23,11 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, Pageable pageable) {
+    public Page<Recruit> findRecruitWithFilters(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, String lang, Pageable pageable) {
 
         QRecruit recruit = QRecruit.recruit;
 
-        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, recruit);
+        BooleanExpression predicate = buildPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, lang, recruit);
 
         List<Recruit> content = jpaQueryFactory
                 .selectFrom(recruit)
@@ -45,13 +45,19 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
 
         return new PageImpl<>(content, pageable, total);
     }
-    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
+    private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, String lang, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 
         // 검색 (title을 사용한 검색을 진행)
         if (keyword != null && !keyword.isEmpty()) {
             predicate = predicate.and(recruit.title.containsIgnoreCase(keyword));
         }
+
+        // 언어
+        if (lang != null && !lang.isEmpty()) {
+            predicate = predicate.and(recruit.lang.eq(lang)); // recruit DB -> lang == RequestParam -> lang
+        }
+
         // 업종
         if (industryTypeList != null && !industryTypeList.isEmpty()) {
             List<IndustryType> formattedTypes = industryTypeList.stream()

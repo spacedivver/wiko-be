@@ -53,10 +53,10 @@ public class RecruitServiceImpl implements RecruitService {
 
 
     @Override
-    public Page<RecruitListResponseDto> readFilterRecruitListWithLocal(String keyword, List<String> industryTypeList, String startAddress, String endAddress,
+    public Page<RecruitListResponseDto> readFilterRecruitListWithLocal(String keyword, String lang, List<String> industryTypeList, String startAddress, String endAddress,
                                                               Long minPay, Long maxPay, Pageable pageable) {
         Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(
-                industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, pageable);
+                industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, lang, pageable);
         if (recruitPage.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
         }
@@ -74,9 +74,9 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public Page<RecruitListResponseDto> readFilterRecruitListWithSearch(String keyword, List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
+    public Page<RecruitListResponseDto> readFilterRecruitListWithSearch(String keyword, String lang, List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
         Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(
-                industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, pageable);
+                industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, lang, pageable);
         if (recruitPage.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
         }

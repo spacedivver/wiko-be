@@ -32,13 +32,16 @@ public class RecruitRequestDto {
     private String phone;
     private String email;
     private Boolean local;
+    private String lang;
+
 
     @Builder
-    public RecruitRequestDto(String title, Long pay, String payType, Boolean local,
+    public RecruitRequestDto(String title, Long pay, String payType, Boolean local, String lang,
                    EmploymentType employmentType, String workingPeriod,
                    String workingHours, String deadline, String qualification, String owner, String phone, String email,
                    String responsibilities, String jobName, String company,String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.title = title;
+        this.lang = lang;
         this.pay = pay;
         this.employmentType = employmentType;
         this.workingPeriod = workingPeriod;
@@ -65,6 +68,7 @@ public class RecruitRequestDto {
                 .title(title)
                 .pay(pay)
                 .payType(payType)
+                .lang(lang)
                 .local(local)
                 .employmentType(employmentType)
                 .workingPeriod(workingPeriod)
@@ -94,6 +98,7 @@ public class RecruitRequestDto {
                 .workingPeriod(recruitRequestVo.getWorkingPeriod())
                 .workingHours(recruitRequestVo.getWorkingHours())
                 .deadline(recruitRequestVo.getDeadline())
+                .lang(recruitRequestVo.getLang())
                 .qualification(recruitRequestVo.getQualification())
                 .responsibilities(recruitRequestVo.getResponsibilities())
                 .preferredQualifications(recruitRequestVo.getPreferredQualifications())
