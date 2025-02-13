@@ -10,6 +10,7 @@ import lombok.ToString;
 public class RecruitRequestVo {
 
     private String title;
+    private String payType;
     private String pay;
     private EmploymentType employmentType;
     private String workingPeriod;
@@ -27,5 +28,6 @@ public class RecruitRequestVo {
     private String owner;
     private String phone;
     private String email;
+    private Boolean local;
 
 }

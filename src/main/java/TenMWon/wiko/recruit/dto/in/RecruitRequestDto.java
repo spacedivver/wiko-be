@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class RecruitRequestDto {
 
     private String title;
+    private String payType;
     private String pay;
     private EmploymentType employmentType;
     private String workingPeriod;
