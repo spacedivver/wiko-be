@@ -36,9 +36,9 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-        if (content.isEmpty()) {
-            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
-        }
+//        if (content.isEmpty()) {
+//            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+//        }
 
         long total = jpaQueryFactory
                 .select(recruit.count())
@@ -49,7 +49,32 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
-    // 필터링 조건(업종, 지역, 급여) + 검색
+    @Override
+    public Page<Recruit> findLocalRecruitWithFilter(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
+        QRecruit recruit = QRecruit.recruit;
+        BooleanExpression predicate = buildLocalPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, recruit)
+                .and(recruit.local.isTrue());
+
+        List<Recruit> content = jpaQueryFactory
+                .selectFrom(recruit)
+                .where(predicate)
+                .orderBy(recruit.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+//
+//        if (content.isEmpty()) {
+//            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+//        }
+
+        long total = jpaQueryFactory
+                .select(recruit.count())
+                .from(recruit)
+                .where(predicate)
+                .fetchOne();
+
+        return new PageImpl<>(content, pageable, total);
+    }
     private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 
@@ -77,6 +102,36 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         if (minPay != null || maxPay != null) {
             predicate = predicate.and(convertPayToLong(recruit.pay, minPay, maxPay));
         }
+        return predicate;
+    }
+
+    ///------------------------------------------///
+
+    // 지역 연계
+    private BooleanExpression buildLocalPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, QRecruit recruit) {
+        BooleanExpression predicate = recruit.isNotNull();
+
+        // 업종 필터링
+        if (industryTypeList != null && !industryTypeList.isEmpty()) {
+            List<IndustryType> formattedTypes = industryTypeList.stream()
+                    .map(type -> IndustryType.valueOf(type.replace("-", "_")))
+                    .collect(Collectors.toList());
+            predicate = predicate.and(recruit.industryType.in(formattedTypes));
+        }
+
+        // 지역 필터링
+        if (startAddress != null && endAddress != null) {
+            predicate = predicate.and(recruit.location.like(startAddress + "%"));
+            predicate = predicate.and(recruit.location.like("%" + endAddress + "%"));
+        } else if (startAddress != null) {
+            predicate = predicate.and(recruit.location.like(startAddress + "%"));
+        }
+
+        // 급여 필터링
+        if (minPay != null || maxPay != null) {
+            predicate = predicate.and(convertPayToLong(recruit.pay, minPay, maxPay));
+        }
+
         return predicate;
     }
 

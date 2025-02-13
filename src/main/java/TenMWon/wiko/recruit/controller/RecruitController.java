@@ -83,4 +83,21 @@ public class RecruitController {
         Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readLocalRecruitList(page, size);
         return new BaseResponse<>(recruitListResponseVoList);
     }
+
+    @Operation(summary = "Recruit 지역 연계 + 필터링 API", description = "업종, 지역, 급여별 필터링 조회 및 지역 연계 recruit 조회하는 API 입니다.", tags = {"Recruit"})
+    @GetMapping("/localFilter")
+    public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitListWithLocal(
+            @RequestParam(required = false) List<String> industryTypeList,
+            @RequestParam(required = false) String startAddress,
+            @RequestParam(required = false) String endAddress,
+            @RequestParam(required = false) Long minPay,
+            @RequestParam(required = false) Long maxPay,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithLocal(industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
+            return new BaseResponse<>(result);
+        }
+    }
 }
