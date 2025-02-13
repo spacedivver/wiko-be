@@ -9,7 +9,7 @@ import lombok.Getter;
 public class RecruitListResponseDto {
 
     private Long id;
-    private String jobName;
+    private String company;
     private String title;
     private String location;
     private String payType;
@@ -17,9 +17,9 @@ public class RecruitListResponseDto {
     private String imgUrl;
 
     @Builder
-    public RecruitListResponseDto(Long id, String jobName, String payType, String title, String location, Long pay, String imgUrl) {
+    public RecruitListResponseDto(Long id, String company, String payType, String title, String location, Long pay, String imgUrl) {
         this.id = id;
-        this.jobName = jobName;
+        this.company = company;
         this.title = title;
         this.location = location;
         this.payType = payType;
@@ -30,7 +30,7 @@ public class RecruitListResponseDto {
     public static RecruitListResponseDto toDto(Recruit recruit) {
         return RecruitListResponseDto.builder()
                 .id(recruit.getRecruitId())
-                .jobName(recruit.getJobName())
+                .company(recruit.getCompany())
                 .title(recruit.getTitle())
                 .location(recruit.getLocation())
                 .payType(recruit.getPayType())
@@ -43,7 +43,7 @@ public class RecruitListResponseDto {
         return RecruitListResponseVo.builder()
                 .id(id)
                 .title(title)
-                .jobName(jobName)
+                .company(company)
                 .location(location)
                 .payType(payType)
                 .pay(pay)
