@@ -49,12 +49,11 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
-
-    // 필터링 조건(업종, 지역, 급여)
+    // 필터링 조건(업종, 지역, 급여) + 검색
     private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 
-        // 검색
+        // 검색 (title과 company를 사용한 검색을 진행)
         if (keyword != null && !keyword.isEmpty()) {
             predicate = predicate.and(recruit.title.containsIgnoreCase(keyword)
                     .or(recruit.company.containsIgnoreCase(keyword)));
@@ -70,6 +69,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         if (startAddress != null && endAddress != null) {
             predicate = predicate.and(recruit.location.like(startAddress + "%"));
             predicate = predicate.and(recruit.location.like("%" + endAddress + "%"));
+//            predicate = predicate.and(recruit.location.like(endAddress + "%"));
         } else if (startAddress != null) {
             predicate = predicate.and(recruit.location.like(startAddress + "%"));
         }

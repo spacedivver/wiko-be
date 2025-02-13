@@ -14,15 +14,18 @@ import TenMWon.wiko.resume.entity.Resume;
 import TenMWon.wiko.resume.repository.CareerRepository;
 import TenMWon.wiko.resume.repository.ResumeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class ResumeServiceImpl implements ResumeService{
+public class ResumeServiceImpl implements ResumeService {
 
     private final ResumeRepository resumeRepository;
     private final CareerRepository careerRepository;
@@ -43,8 +46,8 @@ public class ResumeServiceImpl implements ResumeService{
     public Page<ResumeListResponseDto> readResumeList(int page, int size, String loginId) {
         User user = userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC));
-        Page<Resume> resumePage = resumeRepository.findByUserUserId(user.getUserId(), pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+        Page<Resume> resumePage = resumeRepository.findByUser_UserId(user.getUserId(), pageable);
         if (resumePage.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NO_EXIST_RESUME);
         }
@@ -60,28 +63,11 @@ public class ResumeServiceImpl implements ResumeService{
         });
     }
 
-//    @Override
-//    public ResumeListResponseDto readResume(String loginId) {
-//        User user = userRepository.findByLoginId(loginId)
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-//        Resume resume = resumeRepository.findByUserUserId(user.getUserId())
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
-//        CareerRequestDto careerDetail = null;
-//        if (resume.getCareerType() == CareerType.경력) {
-//            Career career = careerRepository.findByResumeResumeId(resume.getResumeId()).orElse(null);
-//            if (career != null) {
-//                careerDetail = CareerRequestDto.toDto(career);
-//            }
-//        }
-//        return ResumeListResponseDto.toDto(resume, careerDetail);
-//    }
-
-//    @Override
-//    public void updateResumeImage(String loginId, ResumeImageRequestDto resumeImageRequestDto) {
-//        User user = userRepository.findByLoginId(loginId)
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-//        Resume resume = resumeRepository.findByUserUserId(user.getUserId())
-//                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
-//        resumeRepository.save(resumeImageRequestDto.toUpdate(resume));
-//    }
+    @Transactional
+    @Override
+    public void deleteResume(Long resumeId) {
+        Resume resume = resumeRepository.findById(resumeId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_RESUME));
+        resumeRepository.deleteByResumeId(resumeId);
+    }
 }

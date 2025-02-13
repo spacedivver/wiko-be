@@ -16,6 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -57,13 +61,12 @@ public class RecruitServiceImpl implements RecruitService {
         return recruitPage.map(RecruitListResponseDto::toDto);
     }
 
-//    @Override
-//    public Page<RecruitListResponseDto> readRecruitSearch(String keyword, int page, int size) {
-//        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
-//        Page<Recruit> recruitSearch = recruitRepository.findByTitleContainingIgnoreCaseOrCompanyContainingIgnoreCase(keyword, keyword, pageable);
-//        if (recruitSearch.isEmpty()) {
-//            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
-//        }
-//        return recruitSearch.map(RecruitListResponseDto::toDto);
-//    }
+    @Override
+    public Page<RecruitListResponseDto> readTodayRecruit(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+        LocalDate todayInKorea = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDate();
+        LocalDateTime startOfDayInKorea = todayInKorea.atStartOfDay();
+        Page<Recruit> recruitPage = recruitRepository.findByCreatedAtAfter(startOfDayInKorea, pageable);
+        return recruitPage.map(RecruitListResponseDto::toDto);
+    }
 }

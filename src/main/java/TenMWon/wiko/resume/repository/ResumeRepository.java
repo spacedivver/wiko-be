@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
 
-//        Optional<Resume> findByUserUserId(Long userId);
-        Page<Resume> findByUserUserId(Long userId, Pageable pageable);
+        Page<Resume> findByUser_UserId(Long userId, Pageable pageable);
+        void deleteByResumeId(Long resumeId);
 }
