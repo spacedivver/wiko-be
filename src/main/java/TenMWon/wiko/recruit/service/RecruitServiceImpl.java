@@ -84,11 +84,15 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public Page<RecruitListResponseDto> readTodayRecruit(int page, int size) {
+    public Page<RecruitListResponseDto> readTodayRecruit(String lang, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
         LocalDate todayInKorea = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDate();
         LocalDateTime startOfDayInKorea = todayInKorea.atStartOfDay();
-        Page<Recruit> recruitPage = recruitRepository.findByCreatedAtAfter(startOfDayInKorea, pageable);
+//        Page<Recruit> langPage = recruitRepository.findRecruitWithLangAndCreatedAtAfter(startOfDayInKorea, lang, pageable);
+        Page<Recruit> recruitPage = recruitRepository.findByCreatedAtAfterAndLang(startOfDayInKorea, lang, pageable);
+        if(recruitPage.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+        }
         return recruitPage.map(RecruitListResponseDto::toDto);
     }
 }
