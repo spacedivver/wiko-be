@@ -63,6 +63,9 @@ dependencies {
 
 	implementation 'com.nimbusds:nimbus-jose-jwt:9.31'
 
+	// 이메일 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 
