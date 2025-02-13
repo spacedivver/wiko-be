@@ -17,7 +17,7 @@ public class RecruitResponseVo {
     private String responsibilities;
     private String qualifications;
     private String payType;
-    private String pay;
+    private Long pay;
     private EmploymentType employmentType;
     private String workPeriod;
     private String workHours;

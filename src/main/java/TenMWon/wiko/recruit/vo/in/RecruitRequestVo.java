@@ -11,7 +11,7 @@ public class RecruitRequestVo {
 
     private String title;
     private String payType;
-    private String pay;
+    private Long pay;
     private EmploymentType employmentType;
     private String workingPeriod;
     private String workingHours;

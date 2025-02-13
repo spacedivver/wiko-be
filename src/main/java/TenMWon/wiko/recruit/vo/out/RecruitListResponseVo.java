@@ -14,7 +14,7 @@ public class RecruitListResponseVo {
     private String title;
     private String location;
     private String payType;
-    private String pay;
+    private Long pay;
     private String imgUrl;
 
 }

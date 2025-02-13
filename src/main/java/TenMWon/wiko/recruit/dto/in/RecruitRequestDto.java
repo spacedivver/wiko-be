@@ -14,7 +14,7 @@ public class RecruitRequestDto {
 
     private String title;
     private String payType;
-    private String pay;
+    private Long pay;
     private EmploymentType employmentType;
     private String workingPeriod;
     private String workingHours;
@@ -34,7 +34,7 @@ public class RecruitRequestDto {
     private Boolean local;
 
     @Builder
-    public RecruitRequestDto(String title, String pay, String payType, Boolean local,
+    public RecruitRequestDto(String title, Long pay, String payType, Boolean local,
                    EmploymentType employmentType, String workingPeriod,
                    String workingHours, String deadline, String qualification, String owner, String phone, String email,
                    String responsibilities, String jobName, String company,String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
