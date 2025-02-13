@@ -29,5 +29,5 @@ public class RecruitRequestVo {
     private String phone;
     private String email;
     private Boolean local;
-
+    private String lang;
 }

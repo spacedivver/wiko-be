@@ -46,6 +46,8 @@ public class Recruit extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IndustryType industryType;
+    @Column(nullable = false, length = 100)
+    private String lang;
 
     @Column(nullable = false, length = 100)
     private String owner;
@@ -61,13 +63,14 @@ public class Recruit extends BaseEntity {
     @Builder
     public Recruit(Long recruitId, String title, Long pay, String payType, Boolean local,
                    EmploymentType employmentType, String workingPeriod,
-                   String workingHours, String deadline, String qualification,
+                   String workingHours, String deadline, String qualification, String lang,
                    String responsibilities, String jobName, String company, String owner, String phone, String email,
                    String imgUrl, String companyInfo, String location, IndustryType industryType, String preferredQualifications) {
         this.recruitId = recruitId;
         this.title = title;
         this.payType = payType;
         this.local = local;
+        this.lang = lang;
         this.pay = pay;
         this.employmentType = employmentType;
         this.workingPeriod = workingPeriod;
