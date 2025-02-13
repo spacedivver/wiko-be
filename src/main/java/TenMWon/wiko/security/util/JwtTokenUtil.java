@@ -11,14 +11,14 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     // JWT 토큰 발급
-    public static String createToken(String loginId, String key, long expireTimeMs) {
+    public static String createToken(String loginId, String secretKey, long expireTimeMs) {
         Claims claims = Jwts.claims();
         claims.put("loginId", loginId);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expireTimeMs))
-                .signWith(SignatureAlgorithm.HS256, key)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
