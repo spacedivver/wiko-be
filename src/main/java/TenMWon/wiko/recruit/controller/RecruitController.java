@@ -41,7 +41,7 @@ public class RecruitController {
         return new BaseResponse<>(recruitListResponseVoList);
     }
 
-    @Operation(summary = "Recruit 필터링, 검색 API", description = "업종, 지역, 급여별 필터링 조회 및 검색 API 입니다.", tags = {"Recruit"})
+    @Operation(summary = "Recruit 필터링 + 검색 API", description = "업종, 지역, 급여별 필터링 조회 및 검색 API 입니다.", tags = {"Recruit"})
     @GetMapping("/filterList")
     public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitList(
             @RequestParam(required = false) String keyword,
@@ -87,6 +87,7 @@ public class RecruitController {
     @Operation(summary = "Recruit 지역 연계 + 필터링 API", description = "업종, 지역, 급여별 필터링 조회 및 지역 연계 recruit 조회하는 API 입니다.", tags = {"Recruit"})
     @GetMapping("/localFilter")
     public BaseResponse<Page<RecruitListResponseDto>> readFilterRecruitListWithLocal(
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false) List<String> industryTypeList,
             @RequestParam(required = false) String startAddress,
             @RequestParam(required = false) String endAddress,
@@ -96,7 +97,7 @@ public class RecruitController {
             @RequestParam(defaultValue = "10") int size) {
         {
             Pageable pageable = PageRequest.of(page, size);
-            Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithLocal(industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
+            Page<RecruitListResponseDto> result = recruitService.readFilterRecruitListWithLocal(keyword, industryTypeList, startAddress, endAddress, minPay, maxPay, pageable);
             return new BaseResponse<>(result);
         }
     }

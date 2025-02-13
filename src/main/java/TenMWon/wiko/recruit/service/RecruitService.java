@@ -14,7 +14,7 @@ public interface RecruitService {
     void createRecruit(RecruitRequestDto recruitRequestDto);
     RecruitResponseDto readRecruitDetail(Long recruitId);
     Page<RecruitListResponseDto> readRecruitList(int page, int size);
-    Page<RecruitListResponseDto> readFilterRecruitListWithLocal(List<String> industryTypeList, String startAddress, String endAddress,
+    Page<RecruitListResponseDto> readFilterRecruitListWithLocal(String keyword, List<String> industryTypeList, String startAddress, String endAddress,
                                                           Long minPay, Long maxPay, Pageable pageable);
     Page<RecruitListResponseDto> readLocalRecruitList(int page, int size);
     Page<RecruitListResponseDto> readFilterRecruitListWithSearch

@@ -36,36 +36,6 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-//        if (content.isEmpty()) {
-//            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
-//        }
-
-        long total = jpaQueryFactory
-                .select(recruit.count())
-                .from(recruit)
-                .where(predicate)
-                .fetchOne();
-
-        return new PageImpl<>(content, pageable, total);
-    }
-
-    @Override
-    public Page<Recruit> findLocalRecruitWithFilter(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
-        QRecruit recruit = QRecruit.recruit;
-        BooleanExpression predicate = buildLocalPredicate(industryTypeList, startAddress, endAddress, minPay, maxPay, recruit)
-                .and(recruit.local.isTrue());
-
-        List<Recruit> content = jpaQueryFactory
-                .selectFrom(recruit)
-                .where(predicate)
-                .orderBy(recruit.createdAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-//
-//        if (content.isEmpty()) {
-//            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
-//        }
 
         long total = jpaQueryFactory
                 .select(recruit.count())
@@ -78,7 +48,7 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
     private BooleanExpression buildPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, String keyword, QRecruit recruit) {
         BooleanExpression predicate = recruit.isNotNull();
 
-        // 검색 (title과 company를 사용한 검색을 진행)
+//         검색 (title과 company를 사용한 검색을 진행)
         if (keyword != null && !keyword.isEmpty()) {
             predicate = predicate.and(recruit.title.containsIgnoreCase(keyword)
                     .or(recruit.company.containsIgnoreCase(keyword)));
@@ -105,42 +75,12 @@ public class RecruitRepositoryCustomImpl implements RecruitRepositoryCustom {
         return predicate;
     }
 
-    ///------------------------------------------///
-
-    // 지역 연계
-    private BooleanExpression buildLocalPredicate(List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, QRecruit recruit) {
-        BooleanExpression predicate = recruit.isNotNull();
-
-        // 업종 필터링
-        if (industryTypeList != null && !industryTypeList.isEmpty()) {
-            List<IndustryType> formattedTypes = industryTypeList.stream()
-                    .map(type -> IndustryType.valueOf(type.replace("-", "_")))
-                    .collect(Collectors.toList());
-            predicate = predicate.and(recruit.industryType.in(formattedTypes));
-        }
-
-        // 지역 필터링
-        if (startAddress != null && endAddress != null) {
-            predicate = predicate.and(recruit.location.like(startAddress + "%"));
-            predicate = predicate.and(recruit.location.like("%" + endAddress + "%"));
-        } else if (startAddress != null) {
-            predicate = predicate.and(recruit.location.like(startAddress + "%"));
-        }
-
-        // 급여 필터링
-        if (minPay != null || maxPay != null) {
-            predicate = predicate.and(convertPayToLong(recruit.pay, minPay, maxPay));
-        }
-
-        return predicate;
-    }
-
     private BooleanExpression convertPayToLong(StringPath pay, Long minPay, Long maxPay) {
         StringTemplate payWithoutSymbols = Expressions.stringTemplate("replace({0}, ',', '')", pay);
         NumberTemplate<Long> payValue = Expressions.numberTemplate(Long.class, "{0}", payWithoutSymbols);
         BooleanExpression condition = null;
         if (minPay != null) {
-            condition = payValue.goe(minPay);
+            condition = condition == null ? payValue.goe(minPay) : condition.and(payValue.goe(minPay));
         }
         if (maxPay != null) {
             condition = condition == null ? payValue.loe(maxPay) : condition.and(payValue.loe(maxPay));
