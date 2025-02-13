@@ -8,7 +8,6 @@ import lombok.ToString;
 @ToString
 @Builder
 public class RecruitListResponseVo {
-
     private Long id;
     private String company;
     private String title;
