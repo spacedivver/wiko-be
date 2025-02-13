@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>구직 지원 이메일</title>
+</head>
+<body>
+<p>안녕하세요,</p>
+<p>아래 지원자가 귀사의 채용 공고에 지원하고자 합니다.</p>
+
+<p>
+    <strong>이름:</strong>
+    <span th:text="${name}"></span>
+</p>
+<p>
+    <strong>지원자 이메일:</strong>
+    <span th:text="${email}"></span>
+</p>
+<p>
+    <strong>국적:</strong>
+    <span th:text="${nation}"></span>
+</p>
+<p>
+    <strong>전화번호:</strong>
+    <span th:text="${phone}"></span>
+</p>
+<p>
+    <strong>비자 상태:</strong>
+    <span th:text="${visa}"></span>
+</p>
+<p>
+    <strong>학력:</strong>
+    <span th:text="${education}"></span>
+</p>
+<p>
+    <strong>언어 능력:</strong>
+    <span th:text="${langSkill}"></span>
+</p>
+<p>
+    <strong>경력:</strong>
+    <span th:text="${career}"></span>
+</p>
+<p>
+    <strong>강점:</strong>
+    <span th:if="${strength != null}" th:each="item : ${strength}" th:text="${item + ' '}"></span>
+</p>
+<p>
+    <strong>보유 기술:</strong>
+    <span th:if="${skills != null}" th:each="skill : ${skills}" th:text="${skill + ' '}"></span>
+</p>
+
+<p>
+    <strong>자기소개:</strong>
+</p>
+<p th:text="${introduction}"></p>
+
+<br/>
+<p>감사합니다.</p>
+<p>Job Service Team</p>
+</body>
+</html>
