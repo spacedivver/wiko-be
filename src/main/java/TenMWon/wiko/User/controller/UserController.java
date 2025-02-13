@@ -11,6 +11,7 @@ import TenMWon.wiko.security.util.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,9 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     @Operation(summary="회원가입")
     @PostMapping("/join")
@@ -68,7 +72,7 @@ public class UserController {
                     .body("로그인 아이디 또는 비밀번호가 틀렸습니다.");
         }
 
-        String secretKey = "my-secret-key-123123";
+//        String secretKey = "my-secret-key-123123";
         long expireTimeMs = 1000 * 60 * 60; // 60분 유효
         String jwtToken = JwtTokenUtil.createToken(user.getLoginId(), secretKey, expireTimeMs);
         LoginResponse response = new LoginResponse("로그인 성공", jwtToken);
