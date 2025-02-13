@@ -52,6 +52,16 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
+    public Page<RecruitListResponseDto> readLocalRecruitList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+        Page<Recruit> recruitPage = recruitRepository.findByLocalIsTrue(pageable);
+        if (recruitPage.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.NO_EXIST_RECRUIT);
+        }
+        return recruitPage.map(RecruitListResponseDto::toDto);
+    }
+
+    @Override
     public Page<RecruitListResponseDto> readFilterRecruitListWithSearch(String keyword, List<String> industryTypeList, String startAddress, String endAddress, Long minPay, Long maxPay, Pageable pageable) {
         Page<Recruit> recruitPage = recruitRepositoryCustom.findRecruitWithFilters(
                 industryTypeList, startAddress, endAddress, minPay, maxPay, keyword, pageable);

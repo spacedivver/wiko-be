@@ -9,4 +9,5 @@ import java.time.LocalDateTime;
 
 public interface RecruitRepository extends JpaRepository<Recruit, Long> {
     Page<Recruit> findByCreatedAtAfter(LocalDateTime startOfDay, Pageable pageable);
+    Page<Recruit> findByLocalIsTrue(Pageable pageable);
 }

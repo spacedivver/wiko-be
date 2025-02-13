@@ -74,4 +74,13 @@ public class RecruitController {
         Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readTodayRecruit(page, size);
         return new BaseResponse<>(recruitListResponseVoList);
     }
+
+    @Operation(summary = "Recruit 지역 연계 API", description = "지역 연계 recruit 조회하는 API 입니다.", tags = {"Recruit"})
+    @GetMapping("/local")
+    public BaseResponse<Page<RecruitListResponseDto>> readLocalRecruitList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<RecruitListResponseDto> recruitListResponseVoList = recruitService.readLocalRecruitList(page, size);
+        return new BaseResponse<>(recruitListResponseVoList);
+    }
 }
